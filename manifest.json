@@ -6,8 +6,10 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["storage", "activeTab", "scripting"],
+  "permissions": ["storage", "activeTab", "scripting", "webNavigation", "tabs"],
+  "host_permissions": ["https://www.amazon.in/*", "https://www.google.com/*"],
   "action": {
+    "default_title": "Get product value",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "/images/get_started16.png",
