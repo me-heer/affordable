@@ -6,8 +6,15 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["storage", "activeTab", "scripting", "webNavigation", "tabs"],
-  "host_permissions": ["https://www.amazon.in/*", "https://www.google.com/*"],
+  "permissions": ["storage"],
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.amazon.in/*", "https://www.amazon.com/*"],
+      "run_at": "document_end",
+      "js": ["amazon/amazonScript.js"]
+    }
+  ],
   "action": {
     "default_title": "Get product value",
     "default_popup": "popup.html",
