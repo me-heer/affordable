@@ -1,4 +1,4 @@
-let salary = "30000";
+let salary = "48000";
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.storage.sync.set({ salary });
