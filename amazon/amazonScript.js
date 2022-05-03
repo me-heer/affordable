@@ -51,7 +51,3 @@ function updateColorPrice(className) {
         }
     });
 }
-
-function alreadyAppended(appended, element) {
-    return appended.includes(element);
-}
