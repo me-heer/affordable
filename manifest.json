@@ -12,7 +12,7 @@
     {
       "matches": ["https://www.amazon.in/*", "https://www.amazon.com/*"],
       "run_at": "document_end",
-      "js": [ "currency.js", "amazon/amazonScript.js"]
+      "js": [ "lib/currency.js", "amazon/amazonScript.js"]
     }
   ],
   "action": {
