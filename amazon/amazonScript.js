@@ -24,7 +24,6 @@ function getAppendContent(productPrice, salary) {
 }
 
 function updateMainPrice(className) {
-    let appended = [];
     let elements = document.querySelectorAll(className);
 
     elements.forEach((element) => {
@@ -39,7 +38,6 @@ function updateMainPrice(className) {
 }
 
 function updateColorPrice(className) {
-    let appended = [];
     let elements = document.querySelectorAll(className);
     elements.forEach((element) => {
         let productPrice = currency(element.textContent).value;
