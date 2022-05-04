@@ -1,13 +1,29 @@
 // TODO: Update when page URL is updated
 // TODO: Listen to extension updates
 
-updateMainPrice(".a-price");
-updateColorPrice(".a-color-price");
+const blacklistedClasses = ["a-row", "savingsPercentage"];
+updateAllPrices();
 
 /* Featured Items You May Like Carousel */
 // TODO: Fix Formatting, update prices when carousel updates
 // 1. Normal Prices
 // 2. Deal Prices
+
+chrome.runtime.onMessage.addListener(
+    function (request, sender, sendResponse) {
+        // listen for messages sent from background.js
+
+        if (request.message === 'tabUpdated') {
+            updateAllPrices();
+        }
+    });
+
+
+function updateAllPrices() {
+    updateMainPrice(".a-price");
+    updateColorPrice(".a-color-price");
+    // updateDealPrice(".a-price");
+}
 
 
 function appendColorPrice(element, appendContent) {
@@ -20,7 +36,11 @@ function appendMainPrice(element, appendContent) {
 
 function getAppendContent(productPrice, salary) {
     let timeTakenToEarn = parseInt(productPrice * (30 / salary));
-    return ` (${timeTakenToEarn} days)`
+    if (timeTakenToEarn === 0)
+        return ` [less than 1 day]`
+    if (timeTakenToEarn === 1)
+        return ` [1 day]`
+    return ` [${timeTakenToEarn} days]`
 }
 
 function updateMainPrice(className) {
@@ -28,24 +48,54 @@ function updateMainPrice(className) {
 
     elements.forEach((element) => {
         let productPrice = currency(element.firstChild.textContent).value;
-        if (!isNaN(productPrice) && productPrice !== 0) {
+        if (!isNaN(productPrice) && productPrice !== 0 && !containsBlacklistedClasses(element)  && !isAlreadyAppended(element.textContent)) {
             chrome.storage.sync.get("salary", ({salary}) => {
                 appendMainPrice(element, getAppendContent(productPrice, salary));
-                appended.push(element);
             });
         }
     });
+}
+
+function containsBlacklistedClasses(element) {
+    for (let blacklistedClass of blacklistedClasses) {
+        if (element.classList.contains(blacklistedClass))
+            return true;
+    }
+    return false;
 }
 
 function updateColorPrice(className) {
     let elements = document.querySelectorAll(className);
     elements.forEach((element) => {
         let productPrice = currency(element.textContent).value;
-        if (!isNaN(productPrice) && productPrice !== 0) {
+        if (!isNaN(productPrice) && productPrice !== 0 && !containsBlacklistedClasses(element) && !isAlreadyAppended(element.textContent)) {
             chrome.storage.sync.get("salary", ({salary}) => {
                 appendColorPrice(element, getAppendContent(productPrice, salary));
-                appended.push(element);
             });
         }
     });
+}
+
+function updateDealPrice(className) {
+    let elements = document.querySelectorAll(className);
+
+    elements.forEach((element) => {
+        let productPrice = currency(element.firstChild.textContent).value;
+        if (!isNaN(productPrice) && productPrice !== 0 && !containsBlacklistedClasses(element) && !isAlreadyAppended(element.firstChild.textContent)) {
+            chrome.storage.sync.get("salary", ({salary}) => {
+                appendMainPrice(element, getAppendContent(productPrice, salary));
+            });
+        }
+    });
+}
+
+function appendDealPrice(element, appendContent) {
+    element.lastChild.append(appendContent);
+}
+
+function isAlreadyAppended(elementText) {
+    console.log("ELEMENT TEXT: " + elementText)
+    let result = elementText.includes('[') && elementText.includes(']')
+    console.log(result)
+    return result;
 }
