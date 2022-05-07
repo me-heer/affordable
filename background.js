@@ -20,14 +20,10 @@ function setDefaultSalary() {
 
 function sendTabUpdatedMessage(tabId, changeInfo, tab) {
     // read changeInfo data and do something with it (like read the url)
-    console.log("TAB UPDATED")
-    console.log("Tab ID: " + tabId);
-    console.log(changeInfo)
     if (changeInfo.status === 'complete') {
-        console.log("Tab update complete")
         // do something here
         chrome.tabs.sendMessage(tabId, {
-            message: 'tabUpdated'
+            message: 'updatePrices'
         }).then(() => {
             console.log("Successfully sent message to a tab")
         }).catch(function (error) {

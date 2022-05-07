@@ -6,13 +6,18 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["storage", "tabs"],
+  "permissions": ["storage", "tabs", "alarms"],
 
   "content_scripts": [
     {
       "matches": ["https://www.amazon.in/*", "https://www.amazon.com/*"],
       "run_at": "document_end",
       "js": [ "lib/currency.js", "amazon/amazonScript.js"]
+    },
+    {
+      "matches": ["https://www.flipkart.com/*"],
+      "run_at": "document_end",
+      "js": [ "lib/currency.js", "flipkart/flipkartScript.js"]
     }
   ],
   "action": {
