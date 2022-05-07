@@ -12,12 +12,12 @@
     {
       "matches": ["https://www.amazon.in/*", "https://www.amazon.com/*"],
       "run_at": "document_end",
-      "js": [ "lib/currency.js", "amazon/amazonScript.js"]
+      "js": [ "lib/config.js", "lib/utils.js", "lib/currency.js", "amazon/amazonScript.js"]
     },
     {
       "matches": ["https://www.flipkart.com/*"],
       "run_at": "document_end",
-      "js": [ "lib/currency.js", "flipkart/flipkartScript.js"]
+      "js": [ "lib/config.js", "lib/utils.js", "lib/currency.js", "flipkart/flipkartScript.js"]
     }
   ],
   "action": {
