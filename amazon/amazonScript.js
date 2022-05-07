@@ -2,22 +2,22 @@
 // TODO: Listen to extension updates
 
 const blacklistedClasses = ["a-row", "savingsPercentage"];
-updateAllPrices();
-
-/* Featured Items You May Like Carousel */
-// TODO: Fix Formatting, update prices when carousel updates
-// 1. Normal Prices
-// 2. Deal Prices
+main();
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         // listen for messages sent from background.js
 
-        if (request.message === 'tabUpdated') {
+        if (request.message === 'updatePrices') {
             updateAllPrices();
         }
     });
 
+
+function main() {
+    updateAllPrices();
+    setInterval(updateAllPrices, 2 * 1000);
+}
 
 function updateAllPrices() {
     updateMainPrice(".a-price");
@@ -37,10 +37,10 @@ function appendMainPrice(element, appendContent) {
 function getAppendContent(productPrice, salary) {
     let timeTakenToEarn = parseInt(productPrice * (30 / salary));
     if (timeTakenToEarn === 0)
-        return ` [less than 1 day]`
+        return ` (less than 1 day)`
     if (timeTakenToEarn === 1)
-        return ` [1 day]`
-    return ` [${timeTakenToEarn} days]`
+        return ` (1 day)`
+    return ` (${timeTakenToEarn} days)`
 }
 
 function updateMainPrice(className) {
@@ -48,7 +48,7 @@ function updateMainPrice(className) {
 
     elements.forEach((element) => {
         let productPrice = currency(element.firstChild.textContent).value;
-        if (!isNaN(productPrice) && productPrice !== 0 && !containsBlacklistedClasses(element)  && !isAlreadyAppended(element.textContent)) {
+        if (!isNaN(productPrice) && productPrice !== 0 && !containsBlacklistedClasses(element) && !isAlreadyAppended(element.textContent)) {
             chrome.storage.sync.get("salary", ({salary}) => {
                 appendMainPrice(element, getAppendContent(productPrice, salary));
             });
@@ -94,8 +94,6 @@ function appendDealPrice(element, appendContent) {
 }
 
 function isAlreadyAppended(elementText) {
-    console.log("ELEMENT TEXT: " + elementText)
-    let result = elementText.includes('[') && elementText.includes(']')
-    console.log(result)
+    let result = elementText.includes('(') && elementText.includes(')')
     return result;
 }
