@@ -1,8 +1,11 @@
 let salary = "48000";
+let hoverMode = true;
 
-chrome.runtime.onInstalled.addListener(setDefaultSalary);
+chrome.runtime.onInstalled.addListener(setConfigs);
 
-function setDefaultSalary() {
+function setConfigs() {
     chrome.storage.sync.set({salary});
     console.log(`Default Salary: ${salary}`);
+    chrome.storage.sync.set({hoverMode});
+    console.log(`Hover Mode: ${hoverMode}`);
 }
