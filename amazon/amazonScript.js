@@ -4,12 +4,14 @@ const elements = [
     {
         className: ".a-price",
         getter: ["firstChild", "textContent"],
-        setter: ["lastChild"]
+        setter: ["lastChild"],
+        elementGetter: ["firstChild"]
     },
     {
         className: ".a-color-price",
         getter: ["textContent"],
-        setter: []
+        setter: [],
+        elementGetter: []
     }
 ]
 
