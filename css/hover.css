@@ -1,7 +1,7 @@
 .tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black;
+    border-bottom: thin dotted black;
 }
 
 .tooltip .tooltiptext {
@@ -15,9 +15,10 @@
 
     /* Position the tooltip */
     position: absolute;
-    z-index: 500;
-    top: -5px;
-    left: 101%;
+    z-index: 1;
+    bottom: 101%;
+    /*left: 50%;*/
+    margin-left: -60px;
 }
 
 .tooltip:hover .tooltiptext {
