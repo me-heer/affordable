@@ -1,6 +1,6 @@
 let settings = {
-    salary: "30000",
-    hoverMode: true
+    salary: "65000",
+    hoverMode: false
 }
 
 chrome.runtime.onInstalled.addListener(setConfigs);
