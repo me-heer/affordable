@@ -5,7 +5,7 @@ updateSalaryBtn.addEventListener("click", async () => {
   //   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
   let salaryValue = document.getElementById("salary").value;
-  chrome.storage.sync.set({ salary: salaryValue });
+  chrome.storage.sync.set({ settings: {salary: salaryValue} });
   console.log(`Updated salary: ${salaryValue}`)
 
   //   chrome.scripting.executeScript({
