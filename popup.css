@@ -1,8 +1,18 @@
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue", "Noto Sans",
+    "Liberation Sans",
+    Arial,
+    sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: small;
+    width: 500px;
 }
 
-.affordable-info {
-    width: 500px;
-    font-size: small;
+.custom-bg-gradient {
+    background: linear-gradient(to right, #9796f0, #fbc7d4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
 }

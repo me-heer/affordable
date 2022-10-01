@@ -2,16 +2,64 @@
 <html>
 <head>
     <link rel="stylesheet" href="popup.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="affordable-info">
-    <p>Affordable helps you decide what you can actually afford based on the time it would take you to earn back the
-        money.</p>
-</div>
-<input type="number" id="salary" placeholder="Enter your salary"/>
-<button id="updateSalary">Update</button>
+<div class="container">
+    <div class="row" style="padding-top: 20px">
+        <div class="col">
+            <p>Affordable shows the <br>
+                <i class="custom-bg-gradient" style="font-weight: 700"> number of days it takes to earn back the
+                    amount</i> <br>
+                to cover the product price.</p>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="salary" value="5000">
+                <label for="salary">Your monthly compensation</label>
+                <i hidden="hidden" class="salary_input" id="salary_updated_status"
+                   style="font-size: smaller;"></i>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="hoverModeToggle">
+                <label class="form-check-label" for="hoverModeToggle">Hover Mode</label>
+            </div>
+            <i style="font-size: smaller; display: block">Only show price conversion on hovering the product price</i>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col">
+            <p>
+                <a class="btn btn-outline-dark" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                   aria-expanded="false"
+                   aria-controls="collapseExample">
+                    How it works
+                </a>
+            </p>
+            <div class="collapse" id="collapseExample" style="padding-bottom: 20px">
+                <div class="card card-body">
+                    Some placeholder content for the collapse component. This panel is hidden by default but revealed
+                    when the
+                    user activates the relevant trigger.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="popup.js"></script>
+<script src="bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

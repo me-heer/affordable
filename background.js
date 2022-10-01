@@ -1,5 +1,5 @@
 let settings = {
-    salary: "65000",
+    salary: "5000",
     hoverMode: false
 }
 
