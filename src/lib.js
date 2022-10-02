@@ -1,3 +1,9 @@
+const refreshRateInMillis = 500;
+
+const brackets = {
+    left: "(", right: ")"
+}
+
 function getFromStorageSync(itemName, callback) {
     try {
         chrome.storage.sync.get(itemName, callback);
@@ -13,17 +19,15 @@ function getAppendContent(productPrice, salary) {
 
 function getTimeTakenToEarn(productPrice, monthlySalary) {
     let timeTakenToEarn = parseInt(productPrice * (30 / monthlySalary));
-    if (timeTakenToEarn === 0)
-        return "<1 day";
-    if (timeTakenToEarn === 1)
-        return "1 day";
+    if (timeTakenToEarn === 0) return "<1 day";
+    if (timeTakenToEarn === 1) return "1 day";
     return timeTakenToEarn + " days";
 }
 
 function isAlreadyAppended(element, elementInfo) {
     const isAppendedText = element.textContent.includes(`${brackets.left}`) && element.textContent.includes(`${brackets.right}`);
     let actualElement = getElementByKey(element, elementInfo.setter)
-    const isAppendedClass = actualElement.classList.contains("tooltip");
+    const isAppendedClass = actualElement.classList.contains("affordable-tooltip");
     return isAppendedText || isAppendedClass;
 }
 
@@ -33,17 +37,14 @@ function isASentence(priceStr) {
 
 function containsBlacklistedClasses(element, blacklistedClasses) {
     for (let blacklistedClass of blacklistedClasses) {
-        if (element.classList.contains(blacklistedClass))
-            return true;
+        if (element.classList.contains(blacklistedClass)) return true;
     }
     return false;
 }
 
+// TODO: Refactor this
 function isValid(productPrice, element, blacklistedClasses, elementInfo) {
-    return !isNaN(productPrice) && productPrice !== 0
-        && !containsBlacklistedClasses(element, blacklistedClasses)
-        && !isAlreadyAppended(element, elementInfo)
-        && !isASentence(getElementByKey(element, elementInfo.getter));
+    return !isNaN(productPrice) && productPrice !== 0 && !containsBlacklistedClasses(element, blacklistedClasses) && (!isAlreadyAppended(element, elementInfo)) && !isASentence(getElementByKey(element, elementInfo.getter));
 }
 
 function getElementByKey(element, getterKey) {
@@ -64,19 +65,22 @@ function updatePrice(elementInfo, blacklistedClasses) {
 
                 let desiredElement = getElementByKey(element, elementInfo.setter);
                 if (settings.hoverMode) {
-                    desiredElement.classList.add("tooltip");
+                    desiredElement.classList.add("affordable-tooltip");
                     let span = document.createElement("span");
+                    span.setAttribute('id', 'affordable')
                     span.innerText = getTimeTakenToEarn(productPrice, settings.salary);
-                    span.classList.add("tooltiptext");
+                    span.classList.add("affordable-tooltiptext");
                     desiredElement.appendChild(span);
                 } else {
                     let span = document.createElement("span");
                     span.innerText = getAppendContent(productPrice, settings.salary);
+                    span.setAttribute('id', 'affordable')
                     span.setAttribute("style", "display:block");
                     desiredElement.appendChild(span);
-                    desiredElement.setAttribute("title", `You're spending ${getTimeTakenToEarn(productPrice, settings.salary)} of your life`);
+                    desiredElement.setAttribute("title", `It will take you ${getTimeTakenToEarn(productPrice, settings.salary)} to earn ${productPrice}`);
                 }
             })
         }
     });
 }
+
