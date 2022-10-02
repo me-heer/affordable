@@ -1,34 +1,21 @@
-const blacklistedClasses = ["a-row", "savingsPercentage"];
-
-const elements = [
-    {
-        className: ".a-price",
-        getter: ["firstChild", "textContent"],
-        setter: ["lastChild"],
-        elementGetter: ["firstChild"]
-    },
-    {
-        className: ".a-color-price",
-        getter: ["textContent"],
-        setter: [],
-        elementGetter: []
-    }
-]
-
-main();
-
-function main() {
-    updateAllPrices();
-    setInterval(updateAllPrices, refreshRateInMillis);
+function parseWebsite() {
+    currentUrl = window.location.toString();
+    let ecommerce;
+    if (currentUrl.includes('amazon'))
+        ecommerce = amazon;
+    else if (currentUrl.includes('flipkart'))
+        ecommerce = flipkart
+    return ecommerce;
 }
 
 function updateAllPrices() {
-    for (const elementInfo of elements) {
-        updatePrice(elementInfo, blacklistedClasses)
+    let ecommerce = parseWebsite();
+
+    for (const elementInfo of ecommerce.elements) {
+        updatePrice(elementInfo, ecommerce.blacklistedClasses)
     }
 }
 
-// TODO: Same for Flipkart
 function undoUpdates() {
     let elements = document.querySelectorAll('#affordable');
     elements.forEach((element) => {
@@ -48,3 +35,10 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
+
+function main() {
+    updateAllPrices();
+    setInterval(updateAllPrices, refreshRateInMillis);
+}
+
+main();
