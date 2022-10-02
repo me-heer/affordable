@@ -4,27 +4,21 @@
   "version": "1.0",
   "manifest_version": 3,
   "background": {
-    "service_worker": "src/background.js"
+    "service_worker": "background.js"
   },
   "permissions": ["storage", "tabs", "alarms"],
 
   "content_scripts": [
     {
-      "matches": ["https://www.amazon.in/*", "https://www.amazon.com/*"],
+      "matches": ["https://www.amazon.in/*", "https://www.amazon.com/*", "https://www.flipkart.com/*"],
       "run_at": "document_end",
-      "js": [ "src/lib.js", "src/currency.js", "src/main.js"],
-      "css": ["css/main.css"]
-    },
-    {
-      "matches": ["https://www.flipkart.com/*"],
-      "run_at": "document_end",
-      "js": [ "src/lib.js", "src/currency.js", "src/main.js"],
-      "css": ["css/main.css"]
+      "js": [ "config.js", "lib/lib.js", "lib/currency.js", "content.js"],
+      "css": ["content.css"]
     }
   ],
   "action": {
     "default_title": "Affordable",
-    "default_popup": "html/popup.html",
+    "default_popup": "popup/popup.html",
     "default_icon": {
       "16": "/images/get_started16.png",
       "32": "/images/get_started32.png",
@@ -38,5 +32,5 @@
     "48": "/images/get_started48.png",
     "128": "/images/get_started128.png"
   },
-  "options_page": "html/popup.html"
+  "options_page": "popup/popup.html"
 }
