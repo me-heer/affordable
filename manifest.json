@@ -10,15 +10,15 @@
 
   "content_scripts": [
     {
-      "matches": ["https://www.amazon.in/*", "https://www.amazon.com*"],
+      "matches": ["https://www.amazon.in/*", "https://www.amazon.com/*"],
       "run_at": "document_end",
-      "js": [ "src/lib.js", "src/currency.js", "src/amazon/amazonScript.js"],
+      "js": [ "src/lib.js", "src/currency.js", "src/main.js"],
       "css": ["css/main.css"]
     },
     {
       "matches": ["https://www.flipkart.com/*"],
       "run_at": "document_end",
-      "js": [ "src/lib.js", "src/currency.js", "src/flipkart/flipkartScript.js"],
+      "js": [ "src/lib.js", "src/currency.js", "src/main.js"],
       "css": ["css/main.css"]
     }
   ],
