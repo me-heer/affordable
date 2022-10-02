@@ -1,30 +1,30 @@
 {
-  "name": "Can You Afford It?",
-  "description": "Shop for things online based on how much time you have spent earning it.",
+  "name": "Affordable",
+  "description": "Affordable shows the number of days it takes to earn back the amount to cover the product price",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "src/background.js"
   },
   "permissions": ["storage", "tabs", "alarms"],
 
   "content_scripts": [
     {
-      "matches": ["https://www.amazon.in/*", "https://www.amazon.com/*"],
+      "matches": ["https://www.amazon.in/*", "https://www.amazon.com*"],
       "run_at": "document_end",
-      "js": [ "lib/config.js", "lib/main.js", "lib/currency.js", "amazon/amazonScript.js"],
-      "css": ["css/hover.css"]
+      "js": [ "src/lib.js", "src/currency.js", "src/amazon/amazonScript.js"],
+      "css": ["css/main.css"]
     },
     {
       "matches": ["https://www.flipkart.com/*"],
       "run_at": "document_end",
-      "js": [ "lib/config.js", "lib/main.js", "lib/currency.js", "flipkart/flipkartScript.js"],
-      "css": ["css/hover.css"]
+      "js": [ "src/lib.js", "src/currency.js", "src/flipkart/flipkartScript.js"],
+      "css": ["css/main.css"]
     }
   ],
   "action": {
-    "default_title": "Get product value",
-    "default_popup": "popup.html",
+    "default_title": "Affordable",
+    "default_popup": "html/popup.html",
     "default_icon": {
       "16": "/images/get_started16.png",
       "32": "/images/get_started32.png",
@@ -38,5 +38,5 @@
     "48": "/images/get_started48.png",
     "128": "/images/get_started128.png"
   },
-  "options_page": "options.html"
+  "options_page": "html/popup.html"
 }

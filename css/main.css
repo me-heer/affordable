@@ -1,10 +1,11 @@
-.tooltip {
+/* Hover Mode CSS */
+.affordable-tooltip {
     position: relative;
     display: inline-block;
     border-bottom: thin dotted black;
 }
 
-.tooltip .tooltiptext {
+.affordable-tooltip .affordable-tooltiptext {
     visibility: hidden;
     width: 100%;
     background-color: black;
@@ -21,6 +22,7 @@
     margin-left: -60px;
 }
 
-.tooltip:hover .tooltiptext {
+.affordable-tooltip:hover .affordable-tooltiptext {
     visibility: visible;
 }
+/* Hover Mode CSS End */
