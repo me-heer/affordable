@@ -29,3 +29,31 @@ const FLIPKART_CONFIG = {
         }
     ]
 }
+
+const MYNTRA_CONFIG = {
+    blacklistedClasses: [],
+    elements: [
+        {
+            className: ".product-discountedPrice",
+            getter: ["textContent"],
+            setter: []
+        },
+        {
+            className: ".product-price",
+            getter: ["firstChild", "textContent"],
+            setter: ["firstChild"],
+            elementGetter: ["firstChild"]
+        },
+        {
+            className: ".pdp-price",
+            getter: ["firstChild", "textContent"],
+            setter: ["firstChild"],
+            elementGetter: ["firstChild"]
+        },
+        {
+            className: ".product-item-selling-price",
+            getter: ["textContent"],
+            setter: []
+        }
+    ]
+}
