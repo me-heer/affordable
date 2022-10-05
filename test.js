@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const assert = require('assert');
+const { v4: uuidv4 } = require('uuid');
 const config = require("./src/config")
 
 
@@ -17,6 +18,11 @@ describe('Testing Affordable on Different Sites', function () {
                 page.goto(testPage)
                 await page.waitForTimeout(5000);
                 const appendedElements = await page.$$(config.AFFORDABLE_ID);
+                if (!(appendedElements.length > 0)) {
+                    await page.screenshot({
+                        path: `test_report/failed_test_flipkart_${uuidv4()}.png`, fullPage: true
+                    })
+                }
                 assert.ok(appendedElements.length > 0, "No appended elements found")
             })
         }
@@ -42,6 +48,11 @@ describe('Testing Affordable on Different Sites', function () {
                 await page.goto(testPage)
                 await page.waitForTimeout(5000);
                 const appendedElements = await page.$$(config.AFFORDABLE_ID);
+                if (!(appendedElements.length > 0)) {
+                    await page.screenshot({
+                        path: `test_report/failed_test_amazon_${uuidv4()}.png`, fullPage: true
+                    })
+                }
                 assert.ok(appendedElements.length > 0, "No appended elements found")
             })
         }
@@ -66,7 +77,12 @@ describe('Testing Affordable on Different Sites', function () {
                 await page.goto(testPage)
                 await page.waitForTimeout(5000);
                 const appendedElements = await page.$$(config.AFFORDABLE_ID);
-                assert.ok(appendedElements.length > 0, "No appended elements found")
+                if (!(appendedElements.length > 0)) {
+                    await page.screenshot({
+                        path: `test_report/failed_test_myntra_${uuidv4()}.png`, fullPage: true
+                    })
+                }
+                assert.ok(appendedElements.length > 0)
             })
         }
     });
