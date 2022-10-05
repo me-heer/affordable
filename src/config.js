@@ -57,3 +57,7 @@ const MYNTRA_CONFIG = {
         }
     ]
 }
+
+const AFFORDABLE_ID = "#affordable"
+
+module.exports = { AMAZON_CONFIG, FLIPKART_CONFIG, MYNTRA_CONFIG, AFFORDABLE_ID }

@@ -1,0 +1,23 @@
+{
+  "name": "affordable",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/me-heer/affordable.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/me-heer/affordable/issues"
+  },
+  "homepage": "https://github.com/me-heer/affordable#readme",
+  "dependencies": {
+    "mocha": "^10.0.0",
+    "puppeteer": "^18.0.5"
+  }
+}
