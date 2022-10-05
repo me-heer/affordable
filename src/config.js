@@ -3,6 +3,7 @@ Configuration classes for different ecommerce websites.
  */
 const AMAZON_CONFIG = {
     blacklistedClasses: ["a-row", "savingsPercentage"],
+    testPages: ["https://www.amazon.in/s?k=smartphones", "https://www.amazon.in/Apple-iPhone-13-Pro-128/dp/B09V48BYGP"],
     elements: [
         {
             className: ".a-price",
@@ -21,6 +22,7 @@ const AMAZON_CONFIG = {
 
 const FLIPKART_CONFIG = {
     blacklistedClasses: [],
+    testPages: ["https://www.flipkart.com/search?q=smartphones"],
     elements: [
         {
             className: "._30jeq3",
@@ -32,6 +34,7 @@ const FLIPKART_CONFIG = {
 
 const MYNTRA_CONFIG = {
     blacklistedClasses: [],
+    testPages: ["https://www.myntra.com/men-casual-shirts"],
     elements: [
         {
             className: ".product-discountedPrice",
