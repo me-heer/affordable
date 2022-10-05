@@ -20,7 +20,7 @@ describe('Testing Affordable on Different Sites', function () {
                 const appendedElements = await page.$$(config.AFFORDABLE_ID);
                 if (!(appendedElements.length > 0)) {
                     await page.screenshot({
-                        path: `test_report/failed_test_flipkart_${uuidv4()}.png`, fullPage: true
+                        path: `./test_report/failed_test_flipkart_${uuidv4()}.png`, fullPage: true
                     })
                 }
                 assert.ok(appendedElements.length > 0, "No appended elements found")
@@ -50,7 +50,7 @@ describe('Testing Affordable on Different Sites', function () {
                 const appendedElements = await page.$$(config.AFFORDABLE_ID);
                 if (!(appendedElements.length > 0)) {
                     await page.screenshot({
-                        path: `test_report/failed_test_amazon_${uuidv4()}.png`, fullPage: true
+                        path: `./test_report/failed_test_amazon_${uuidv4()}.png`, fullPage: true
                     })
                 }
                 assert.ok(appendedElements.length > 0, "No appended elements found")
@@ -79,7 +79,7 @@ describe('Testing Affordable on Different Sites', function () {
                 const appendedElements = await page.$$(config.AFFORDABLE_ID);
                 if (!(appendedElements.length > 0)) {
                     await page.screenshot({
-                        path: `test_report/failed_test_myntra_${uuidv4()}.png`, fullPage: true
+                        path: `./test_report/failed_test_myntra_${uuidv4()}.png`, fullPage: true
                     })
                 }
                 assert.ok(appendedElements.length > 0)
