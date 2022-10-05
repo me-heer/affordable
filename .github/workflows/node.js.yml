@@ -30,8 +30,8 @@ jobs:
           mkdir test_report
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
-    - name: Send mail
+    - run: npm test ci
+    - name: Send failed test report
       if: always()
       uses: dawidd6/action-send-mail@v3  
       with:
@@ -42,9 +42,9 @@ jobs:
         username: ${{ secrets.EMAIL_USERNAME }}
         password: ${{ secrets.EMAIL_PASSWORD }}
         # email subject
-        subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+        subject: Affordable Tests Failure Report
         # email body as text
-        body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+        body: Attachments of this email (if any) are the screenshots for tests which failed to run. Filenames indicate the website for which it failed.
         # comma-separated string, send email to
         to: mihir67mj@gmail.com
         # from email name

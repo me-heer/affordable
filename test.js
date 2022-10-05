@@ -73,6 +73,9 @@ describe('Testing Affordable on Different Sites', function () {
         const testPages = config.MYNTRA_CONFIG.testPages
         for (let testPage of testPages) {
             it(`Should load ${testPage} with elements having affordable as id`, async function () {
+                if (process.argv.includes('ci')) {
+                    this.skip()
+                }
                 const page = await browser.newPage();
                 await page.goto(testPage)
                 await page.waitForTimeout(5000);
