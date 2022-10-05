@@ -22,6 +22,18 @@ describe('Testing Affordable on Different Sites', function () {
         }
     });
 
+    after(async function () {
+        await browser.close();
+    });
+});
+
+
+describe('Testing Affordable on Different Sites', function () {
+    this.timeout(20000); // default is 2 seconds and that may not be enough to boot browsers and pages.
+    before(async function () {
+        await boot();
+    });
+
     describe('Amazon Test', async function () {
         const testPages = config.AMAZON_CONFIG.testPages
         for (let testPage of testPages) {
@@ -33,6 +45,17 @@ describe('Testing Affordable on Different Sites', function () {
                 assert.ok(appendedElements.length > 0, "No appended elements found")
             })
         }
+    });
+
+    after(async function () {
+        await browser.close();
+    });
+});
+
+describe('Testing Affordable on Different Sites', function () {
+    this.timeout(20000); // default is 2 seconds and that may not be enough to boot browsers and pages.
+    before(async function () {
+        await boot();
     });
 
     describe('Myntra Test', async function () {
