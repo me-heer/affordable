@@ -44,16 +44,12 @@ function containsBlacklistedClasses(element, blacklistedClasses) {
     return false;
 }
 
-function customChecks(productPrice) {
-    return !isASentence(productPrice);
-}
 
-// TODO: Refactor this
 function isValid(productPrice, element, blacklistedClasses, elementInfo) {
     return !isNaN(productPrice) && productPrice !== 0
         && !containsBlacklistedClasses(element, blacklistedClasses)
-        && (!isAlreadyAppended(element, elementInfo))
-        && customChecks(productPrice);
+        && !isAlreadyAppended(element, elementInfo)
+        && !isASentence(getElementByKey(element, elementInfo.getter));
 }
 
 function myntraCustomCheck(element, elementInfo) {
