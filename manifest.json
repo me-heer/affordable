@@ -10,10 +10,9 @@
 
   "content_scripts": [
     {
-      "matches": ["https://www.amazon.in/*", "https://www.amazon.com/*", "https://www.flipkart.com/*"],
+      "matches": ["https://www.amazon.in/*", "https://www.amazon.com/*", "https://www.flipkart.com/*", "https://www.myntra.com/*"],
       "run_at": "document_end",
-      "js": [ "config.js", "lib/lib.js", "lib/currency.js", "content.js"],
-      "css": ["content.css"]
+      "js": [ "config.js", "lib/lib.js", "lib/currency.js", "content.js"]
     }
   ],
   "action": {

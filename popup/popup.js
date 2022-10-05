@@ -52,7 +52,6 @@ function updateSalaryWhenDoneTyping() {
     });
 }
 
-
 function updateHoverMode() {
     let hoverModeToggle = document.getElementById('hoverModeToggle');
     hoverModeToggle.addEventListener('change', () => {
