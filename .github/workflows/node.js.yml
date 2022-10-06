@@ -32,7 +32,7 @@ jobs:
     - run: npm run build --if-present
     - run: npm test ci
     - name: zip unpacked extension
-    - uses: montudor/action-zip@v1
+      uses: montudor/action-zip@v1
       run: zip -qq -r affordable.zip src
     - name: Send failed test report
       if: always()
