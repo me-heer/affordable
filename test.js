@@ -42,26 +42,13 @@ describe('Testing Affordable on Different Sites', function () {
             })
         }
     });
-
-    after(async function () {
-        await browser.close();
-    });
-});
-
-
-describe('Testing Affordable on Different Sites', function () {
-    this.timeout(20000); // default is 2 seconds and that may not be enough to boot browsers and pages.
-    before(async function () {
-        await boot();
-    });
-
+    
     describe('Amazon Test', async function () {
         const testPages = testConfig.amazon.testPages
         for (let testPage of testPages) {
             it(`Should load ${testPage} with elements having #affordable as id`, async function () {
                 const page = await browser.newPage();
                 await page.goto(testPage)
-                await page.waitForTimeout(5000);
                 const appendedElements = await page.$$("#affordable");
                 if (!(appendedElements.length > 0)) {
                     await page.screenshot({
@@ -73,17 +60,6 @@ describe('Testing Affordable on Different Sites', function () {
         }
     });
 
-    after(async function () {
-        await browser.close();
-    });
-});
-
-describe('Testing Affordable on Different Sites', function () {
-    this.timeout(20000); // default is 2 seconds and that may not be enough to boot browsers and pages.
-    before(async function () {
-        await boot();
-    });
-
     describe('Myntra Test', async function () {
         const testPages = testConfig.myntra.testPages
         for (let testPage of testPages) {
@@ -93,7 +69,6 @@ describe('Testing Affordable on Different Sites', function () {
                 }
                 const page = await browser.newPage();
                 await page.goto(testPage)
-                await page.waitForTimeout(10000);
                 const appendedElements = await page.$$("#affordable");
                 if (!(appendedElements.length > 0)) {
                     await page.screenshot({
@@ -103,17 +78,6 @@ describe('Testing Affordable on Different Sites', function () {
                 assert.ok(appendedElements.length > 0)
             })
         }
-    });
-
-    after(async function () {
-        await browser.close();
-    });
-});
-
-describe('Testing Affordable on Different Sites', function () {
-    this.timeout(20000); // default is 2 seconds and that may not be enough to boot browsers and pages.
-    before(async function () {
-        await boot();
     });
 
     describe('Ajio Test', async function () {
