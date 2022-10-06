@@ -33,8 +33,7 @@ jobs:
     - run: npm test ci
     - name: zip unpacked extension
     - uses: montudor/action-zip@v1
-      with:
-        args: zip -qq -r affordable.zip src
+      run: zip -qq -r affordable.zip src
     - name: Send failed test report
       if: always()
       uses: dawidd6/action-send-mail@v3  
