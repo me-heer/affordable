@@ -4,6 +4,21 @@ const { v4: uuidv4 } = require('uuid');
 const config = require("./src/config")
 
 
+const testConfig = {
+    flipkart: {
+        testPages: ["https://www.flipkart.com/search?q=smartphones"],
+    },
+    amazon: {
+        testPages: ["https://www.amazon.in/s?k=smartphones", "https://www.amazon.in/Apple-iPhone-13-Pro-128/dp/B09V48BYGP"],
+    },
+    myntra: {
+        testPages: ["https://www.myntra.com/men-casual-shirts"],
+    },
+    ajio: {
+        testPages: ["https://www.ajio.com/s/sneakers-4349-69931"],
+    }
+}
+
 describe('Testing Affordable on Different Sites', function () {
     this.timeout(20000); // default is 2 seconds and that may not be enough to boot browsers and pages.
     before(async function () {
@@ -11,13 +26,13 @@ describe('Testing Affordable on Different Sites', function () {
     });
 
     describe('Flipkart Test', async function () {
-        const testPages = config.FLIPKART_CONFIG.testPages
+        const testPages = testConfig.flipkart.testPages
         for (let testPage of testPages) {
-            it(`Should load ${testPage} with elements having affordable as id`, async function () {
+            it(`Should load ${testPage} with elements having #affordable as id`, async function () {
                 const page = await browser.newPage();
                 page.goto(testPage)
                 await page.waitForTimeout(5000);
-                const appendedElements = await page.$$(config.AFFORDABLE_ID);
+                const appendedElements = await page.$$("#affordable");
                 if (!(appendedElements.length > 0)) {
                     await page.screenshot({
                         path: `./test_report/failed_test_flipkart_${uuidv4()}.png`, fullPage: true
@@ -41,13 +56,13 @@ describe('Testing Affordable on Different Sites', function () {
     });
 
     describe('Amazon Test', async function () {
-        const testPages = config.AMAZON_CONFIG.testPages
+        const testPages = testConfig.amazon.testPages
         for (let testPage of testPages) {
-            it(`Should load ${testPage} with elements having affordable as id`, async function () {
+            it(`Should load ${testPage} with elements having #affordable as id`, async function () {
                 const page = await browser.newPage();
                 await page.goto(testPage)
                 await page.waitForTimeout(5000);
-                const appendedElements = await page.$$(config.AFFORDABLE_ID);
+                const appendedElements = await page.$$("#affordable");
                 if (!(appendedElements.length > 0)) {
                     await page.screenshot({
                         path: `./test_report/failed_test_amazon_${uuidv4()}.png`, fullPage: true
@@ -63,23 +78,23 @@ describe('Testing Affordable on Different Sites', function () {
     });
 });
 
-describe('Testing Affordable on Different Sites', function () {
+describe.only('Testing Affordable on Different Sites', function () {
     this.timeout(20000); // default is 2 seconds and that may not be enough to boot browsers and pages.
     before(async function () {
         await boot();
     });
 
     describe('Myntra Test', async function () {
-        const testPages = config.MYNTRA_CONFIG.testPages
+        const testPages = testConfig.myntra.testPages
         for (let testPage of testPages) {
-            it(`Should load ${testPage} with elements having affordable as id`, async function () {
+            it(`Should load ${testPage} with elements having #affordable as id`, async function () {
                 if (process.argv.includes('ci')) {
                     this.skip()
                 }
                 const page = await browser.newPage();
                 await page.goto(testPage)
-                await page.waitForTimeout(5000);
-                const appendedElements = await page.$$(config.AFFORDABLE_ID);
+                await page.waitForTimeout(10000);
+                const appendedElements = await page.$$("#affordable");
                 if (!(appendedElements.length > 0)) {
                     await page.screenshot({
                         path: `./test_report/failed_test_myntra_${uuidv4()}.png`, fullPage: true
@@ -95,6 +110,34 @@ describe('Testing Affordable on Different Sites', function () {
     });
 });
 
+describe('Testing Affordable on Different Sites', function () {
+    this.timeout(20000); // default is 2 seconds and that may not be enough to boot browsers and pages.
+    before(async function () {
+        await boot();
+    });
+
+    describe('Ajio Test', async function () {
+        const testPages = testConfig.ajio.testPages
+        for (let testPage of testPages) {
+            it(`Should load ${testPage} with elements having #affordable as id`, async function () {
+                const page = await browser.newPage();
+                await page.goto(testPage)
+                await page.waitForTimeout(10000);
+                const appendedElements = await page.$$("#affordable");
+                if (!(appendedElements.length > 0)) {
+                    await page.screenshot({
+                        path: `./test_report/failed_test_ajio_${uuidv4()}.png`, fullPage: true
+                    })
+                }
+                assert.ok(appendedElements.length > 0)
+            })
+        }
+    });
+
+    after(async function () {
+        await browser.close();
+    });
+});
 
 async function boot() {
     const pathToExtension = require('path').join(__dirname, 'src');

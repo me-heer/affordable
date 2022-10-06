@@ -34,7 +34,7 @@ function isAlreadyAppended(element, elementInfo) {
 }
 
 function isASentence(priceStr) {
-    return priceStr.toString().split(" ").length > 1;
+    return priceStr.toString().split(" ").length > 1 && !priceStr.includes("Rs.");
 }
 
 function containsBlacklistedClasses(element, blacklistedClasses) {
@@ -121,6 +121,8 @@ function parseWebsite() {
         ecommerce = FLIPKART_CONFIG;
     else if (currentUrl.includes('myntra'))
         ecommerce = MYNTRA_CONFIG;
+    else if (currentUrl.includes('ajio'))
+        ecommerce = AJIO_CONFIG;
     return ecommerce;
 }
 

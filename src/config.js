@@ -3,7 +3,6 @@ Configuration classes for different ecommerce websites.
  */
 const AMAZON_CONFIG = {
     blacklistedClasses: ["a-row", "savingsPercentage"],
-    testPages: ["https://www.amazon.in/s?k=smartphones", "https://www.amazon.in/Apple-iPhone-13-Pro-128/dp/B09V48BYGP"],
     elements: [
         {
             className: ".a-price",
@@ -22,7 +21,6 @@ const AMAZON_CONFIG = {
 
 const FLIPKART_CONFIG = {
     blacklistedClasses: [],
-    testPages: ["https://www.flipkart.com/search?q=smartphones"],
     elements: [
         {
             className: "._30jeq3",
@@ -34,18 +32,11 @@ const FLIPKART_CONFIG = {
 
 const MYNTRA_CONFIG = {
     blacklistedClasses: [],
-    testPages: ["https://www.myntra.com/men-casual-shirts"],
     elements: [
         {
             className: ".product-discountedPrice",
             getter: ["textContent"],
             setter: []
-        },
-        {
-            className: ".product-price",
-            getter: ["firstChild", "textContent"],
-            setter: ["firstChild"],
-            elementGetter: ["firstChild"]
         },
         {
             className: ".pdp-price",
@@ -61,6 +52,15 @@ const MYNTRA_CONFIG = {
     ]
 }
 
-const AFFORDABLE_ID = "#affordable"
+const AJIO_CONFIG = {
+    blacklistedClasses: [],
+    elements: [
+        {
+            className: ".price  ",
+            getter: ["textContent"],
+            setter: []
+        }
+    ]
+}
 
-module.exports = { AMAZON_CONFIG, FLIPKART_CONFIG, MYNTRA_CONFIG, AFFORDABLE_ID }
+const AFFORDABLE_ID = "#affordable"
