@@ -78,7 +78,7 @@ describe('Testing Affordable on Different Sites', function () {
     });
 });
 
-describe.only('Testing Affordable on Different Sites', function () {
+describe('Testing Affordable on Different Sites', function () {
     this.timeout(20000); // default is 2 seconds and that may not be enough to boot browsers and pages.
     before(async function () {
         await boot();
