@@ -54,5 +54,5 @@ jobs:
         to: mihir67mj@gmail.com
         # from email name
         from: Github Workflow
-        attachments: ./test_report/*.png,affordable.zip
+        attachments: ./test_report/*.png,affordable.mihir
 
