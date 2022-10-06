@@ -31,11 +31,6 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test ci
-    - name: zip unpacked extension
-      if: always()
-      uses: montudor/action-zip@v1
-      with:
-        args: zip -qq -r affordable.mihir src
     - name: Send failed test report
       if: always()
       uses: dawidd6/action-send-mail@v3  
@@ -54,5 +49,5 @@ jobs:
         to: mihir67mj@gmail.com
         # from email name
         from: Github Workflow
-        attachments: ./test_report/*.png,affordable.mihir
+        attachments: ./test_report/*.png
 
