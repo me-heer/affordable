@@ -59,7 +59,17 @@ const AJIO_CONFIG = {
             className: ".price  ",
             getter: ["textContent"],
             setter: []
-        }
+        },
+        {
+            className: ".prod-sp",
+            getter: ["textContent"],
+            setter: []
+        },
+        {
+            className: ".sec-prod-cp",
+            getter: ["textContent"],
+            setter: []
+        },
     ]
 }
 

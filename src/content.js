@@ -1,5 +1,5 @@
 function updateAllPrices() {
-    let ecommerce = parseWebsite();
+    let ecommerce = fetchConfigBasedOnWebsite();
 
     for (const elementInfo of ecommerce.elements) {
         updatePrice(elementInfo, ecommerce.blacklistedClasses)

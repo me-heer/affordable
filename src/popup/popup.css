@@ -9,10 +9,23 @@ body {
     sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: small;
-    width: 500px;
+    width: 400px;
+}
+
+.affordable-title {
+    font-style: italic;
+    font-weight: 800;
+    font-size: x-large;
+    background: linear-gradient(to right, #36d1dc, #5b86e5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
+    margin: 10px;
+}
+
+.container {
+    margin: 2px
 }
 
 .custom-bg-gradient {
-    background: linear-gradient(to right, #9796f0, #fbc7d4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #36d1dc, #5b86e5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: white;
 }

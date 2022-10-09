@@ -112,16 +112,16 @@ function parseElementValue(elementValue) {
     return parsed
 }
 
-function parseWebsite() {
-    currentUrl = window.location.toString();
+function fetchConfigBasedOnWebsite() {
+    const currentUrl = new URL(window.location.toString());
     let ecommerce;
-    if (currentUrl.includes('amazon'))
+    if (currentUrl.hostname.includes('amazon'))
         ecommerce = AMAZON_CONFIG;
-    else if (currentUrl.includes('flipkart'))
+    else if (currentUrl.hostname.includes('flipkart'))
         ecommerce = FLIPKART_CONFIG;
-    else if (currentUrl.includes('myntra'))
+    else if (currentUrl.hostname.includes('myntra'))
         ecommerce = MYNTRA_CONFIG;
-    else if (currentUrl.includes('ajio'))
+    else if (currentUrl.hostname.includes('ajio'))
         ecommerce = AJIO_CONFIG;
     return ecommerce;
 }
