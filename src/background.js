@@ -1,12 +1,11 @@
-let settings = {
+let defaultSettings = {
     salary: "5000",
-    hoverMode: false
+    hoverMode: false,
+    disabledSites: []
 }
 
 chrome.runtime.onInstalled.addListener(setConfigs);
 
 function setConfigs() {
-    chrome.storage.sync.set({settings});
-    console.log(`Default Salary: ${settings.salary}`);
-    console.log(`Hover Mode: ${settings.hoverMode}`);
+    chrome.storage.sync.set({settings: defaultSettings});
 }

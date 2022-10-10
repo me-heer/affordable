@@ -1,10 +1,11 @@
 function updateAllPrices() {
-    let ecommerce = fetchConfigBasedOnWebsite();
+        let ecommerce = fetchConfigBasedOnWebsite();
 
-    for (const elementInfo of ecommerce.elements) {
-        updatePrice(elementInfo, ecommerce.blacklistedClasses)
-    }
-}
+        if (ecommerce) {
+            for (const elementInfo of ecommerce.elements) {
+                updatePrice(elementInfo, ecommerce.blacklistedClasses)
+            }
+        }
 
 function main() {
     updateAllPrices();

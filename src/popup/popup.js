@@ -37,7 +37,7 @@ function updateSalary() {
     sendMessage();
 }
 
-function updateSalaryWhenDoneTyping() {
+function addSalaryUpdateListener() {
 //setup before functions
     let typingTimer;                //timer identifier
     let doneTypingInterval = 500;  //time in ms (5 seconds)
@@ -52,7 +52,7 @@ function updateSalaryWhenDoneTyping() {
     });
 }
 
-function updateHoverMode() {
+function addHoverModeUpdateListener() {
     let hoverModeToggle = document.getElementById('hoverModeToggle');
     hoverModeToggle.addEventListener('change', () => {
         console.log("HOVER MODE: {}", hoverModeToggle.checked)
@@ -65,8 +65,35 @@ function updateHoverMode() {
     });
 }
 
+function addDisableForThisSiteUpdateListener() {
+    let disableForThisSiteToggle = document.getElementById('disableForThisSiteToggle');
+    disableForThisSiteToggle.addEventListener('change', () => {
+
+        chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+
+            chrome.storage.sync.get("settings", ({settings}) => {
+                disabledSites = settings.disabledSites
+                const currentUrl = new URL(tabs[0].url);
+                if (disableForThisSiteToggle.checked) {
+                    // add site
+                    disabledSites.push(currentUrl.hostname)
+                } else {
+                    // remove site
+                    disabledSites = disabledSites.filter(item => item !== currentUrl.hostname)
+                }
+                settings.disabledSites = disabledSites
+                console.log("Settings: ", settings)
+                chrome.storage.sync.set({settings});
+            })
+            sendMessage()
+        });
+
+
+        
+    });
+}
 
 populateDefaultValues();
-updateSalaryWhenDoneTyping();
-updateHoverMode();
-
+addSalaryUpdateListener();
+addHoverModeUpdateListener();
+addDisableForThisSiteUpdateListener();

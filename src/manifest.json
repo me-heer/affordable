@@ -12,7 +12,7 @@
     {
       "matches": ["https://*/*"],
       "run_at": "document_end",
-      "js": [ "config.js", "lib/lib.js", "lib/currency.js", "content.js"]
+      "js": [ "config.js", "main.js", "lib/currency.js", "content.js"]
     }
   ],
   "action": {
