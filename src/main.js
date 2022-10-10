@@ -36,7 +36,7 @@ function isASentence(element, elementInfo) {
     return priceStr.toString().split(" ").length > 1
         && !priceStr.includes("Rs.")
         && !priceStr.includes("US")
-        && !priceStr.includes("to");
+        && (!priceStr.includes("to") || priceStr.includes("stock"));
 }
 
 function containsBlacklistedClasses(element, blacklistedClasses) {
@@ -81,10 +81,7 @@ function parseAndAppend(elementValue, element, blacklistedClasses, elementInfo, 
     let productPrice = currency(parsedPrice).value;
     if (isValid(productPrice, element, blacklistedClasses, elementInfo)) {
         getFromStorageSync("settings", ({ settings }) => {
-            const currentUrl = new URL(window.location.toString())
-            if (!settings.disabledSites.includes(currentUrl.hostname)) {
-                append(elementInfo, element, productPrice, settings, isPriceRange);
-            }
+            append(elementInfo, element, productPrice, settings, isPriceRange);
         });
     }
 }

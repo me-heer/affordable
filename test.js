@@ -1,7 +1,6 @@
 const puppeteer = require('puppeteer');
 const assert = require('assert');
 const { v4: uuidv4 } = require('uuid');
-const config = require("./src/config")
 
 
 const testConfig = {
@@ -15,7 +14,10 @@ const testConfig = {
         testPages: ["https://www.myntra.com/men-casual-shirts"],
     },
     ajio: {
-        testPages: ["https://www.ajio.com/s/sneakers-4349-69931"],
+        testPages: ["https://www.ajio.com/s/clothing-4461-74581"],
+    },
+    ebay: {
+        testPages: ["https://www.ebay.com/globaldeals"]
     }
 }
 
@@ -91,6 +93,24 @@ describe('Testing Affordable on Different Sites', function () {
                 if (!(appendedElements.length > 0)) {
                     await page.screenshot({
                         path: `./test_report/failed_test_ajio_${uuidv4()}.png`, fullPage: true
+                    })
+                }
+                assert.ok(appendedElements.length > 0)
+            })
+        }
+    });
+
+    describe('eBay Test', async function () {
+        const testPages = testConfig.ebay.testPages
+        for (let testPage of testPages) {
+            it(`Should load ${testPage} with elements having #affordable as id`, async function () {
+                const page = await browser.newPage();
+                await page.goto(testPage)
+                await page.waitForTimeout(10000);
+                const appendedElements = await page.$$("#affordable");
+                if (!(appendedElements.length > 0)) {
+                    await page.screenshot({
+                        path: `./test_report/failed_test_ebay_${uuidv4()}.png`, fullPage: true
                     })
                 }
                 assert.ok(appendedElements.length > 0)

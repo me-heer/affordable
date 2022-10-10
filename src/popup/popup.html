@@ -1,40 +1,43 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" href="popup.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-<div class="container">
-    <div class="row" style="padding-top: 20px">
-        <div class="col affordable-title text-center">
-            Affordable
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="salary" value="5000">
-                <label for="salary">Your monthly salary/compensation</label>
-                <i hidden="hidden" class="salary_input" id="salary_updated_status"
-                   style="font-size: smaller;"></i>
-                <i class="salary_input" style="font-size: smaller;">(This data stays in your browser and is only used locally)</i>
+    <div class="container">
+        <div class="row" style="padding-top: 20px">
+            <div class="col affordable-title text-center">
+                Affordable
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="hoverModeToggle">
-                <label class="form-check-label" for="hoverModeToggle">Hover Mode</label>
-            </div>
-            <i style="font-size: smaller; display: block">Only show price conversion on hovering the product price</i>
-        </div>
-    </div>
 
+        <div class="row">
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="salary" value="5000">
+                    <label for="salary">Your monthly salary/compensation</label>
+                    <i hidden="hidden" class="salary_input" id="salary_updated_status" style="font-size: smaller;"></i>
+                    <i class="salary_input" style="font-size: smaller;">(This data stays in your browser and is only
+                        used locally)</i>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" role="switch" id="hoverModeToggle">
+                    <label class="form-check-label" for="hoverModeToggle">Hover mode</label>
+                    <i style="font-size: smaller; display: block">Only show price conversion on hovering the product
+                        price</i>
+                </div>
+            </div>
+        </div>
+        <!-- 
     <hr>
 
     <div class="row">
@@ -56,21 +59,35 @@
         </div>
     </div>
 
-    <hr>
+    <hr> -->
 
-    <div class="row">
-        <div class="col">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="disableForThisSiteToggle">
-                <label class="form-check-label" for="disableForThisSiteToggle">Disable for this site</label>
+        <div class="row">
+            <div class="col">
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input btn-danger" type="checkbox" role="switch"
+                        id="disableForThisSiteToggle">
+                    <label class="form-check-label" for="disableForThisSiteToggle">Disable for this site</label>
+                    <i style="font-size: smaller; display: block">Do not show price conversion for <b
+                            id="disableForThisSiteText" style="font-weight: 600;"></b></i>
+                </div>
             </div>
-            <i style="font-size: smaller; display: block">Do not show price conversion for this site</i>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input btn-danger" type="checkbox" role="switch"
+                        id="disableExtensionToggle">
+                    <label class="form-check-label" for="disableExtensionToggle">Disable extension for all sites</label>
+                    <i style="font-size: smaller; display: block">Disable showing price conversion for <b
+                            id="disableForThisSiteText" style="font-weight: 600;">all sites</b></i>
+                </div>
+            </div>
         </div>
     </div>
-
-</div>
-<script src="popup.js"></script>
-<script src="../bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="popup.js"></script>
+    <script src="../bootstrap/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

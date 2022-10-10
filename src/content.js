@@ -1,11 +1,16 @@
 function updateAllPrices() {
-        let ecommerce = fetchConfigBasedOnWebsite();
-
-        if (ecommerce) {
-            for (const elementInfo of ecommerce.elements) {
-                updatePrice(elementInfo, ecommerce.blacklistedClasses)
+    getFromStorageSync("settings", ({ settings }) => {
+        if (settings.disabled !== true && !settings.disabledSites.includes(new URL(window.location.toString()).hostname)) {
+            let ecommerce = fetchConfigBasedOnWebsite();
+    
+            if (ecommerce) {
+                for (const elementInfo of ecommerce.elements) {
+                    updatePrice(elementInfo, ecommerce.blacklistedClasses)
+                }
             }
         }
+    });
+}
 
 function main() {
     updateAllPrices();
