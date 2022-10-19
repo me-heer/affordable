@@ -1,6 +1,3 @@
-// TODO: Segregate functions?
-
-
 function getFromStorageSync(itemName, callback) {
     try {
         chrome.storage.sync.get(itemName, callback);
@@ -17,11 +14,29 @@ function getAppendContent(productPrice, salary) {
 function getTimeTakenToEarn(productPrice, monthlySalary) {
     if (debugMode)
         return productPrice
-
     let timeTakenToEarn = parseInt(productPrice * (30 / monthlySalary));
     if (timeTakenToEarn === 0) return "<1 day";
     if (timeTakenToEarn === 1) return "1 day";
+    if ((timeTakenToEarn / 30) > 1) {
+        // More than 1 month
+        let months = Math.floor(timeTakenToEarn / 30)
+        if (months === 1)
+            months = months + " month"
+        else
+            months = months + " months"
+        let days = (timeTakenToEarn % 30)
+        if (days === 1)
+            days = days + " day"
+        else 
+            days = days + " days"
+        return months + ", " + days
+    }
+
     return timeTakenToEarn + " days";
+}
+
+function getDays(productPrice, monthlySalary) {
+    return parseInt(productPrice * (30 / monthlySalary));
 }
 
 function isAlreadyAppended(element, elementInfo) {
@@ -90,8 +105,11 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
     let desiredElement = getElementByKey(element, elementInfo.setter);
     let span = document.createElement("span");
     span.setAttribute('id', 'affordable');
-    span.classList.add("affordable-price-converted");
     desiredElement.appendChild(span);
+
+    if (settings.colourCodePrices) {
+        addClassBasedOnColourCode(element, true, getDays(productPrice, settings.salary))
+    }
 
     if (settings.hoverMode) {
         // Hover Mode Attributes
@@ -99,7 +117,7 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
         span.innerText = " " + brackets.left + getTimeTakenToEarn(productPrice, settings.salary) + brackets.right;
         element.classList.add("hover-mode");
         element.addEventListener('mouseover', function handleMouseOver() {
-            span.style.display = 'inline';
+            span.style.display = 'block';
 
         });
         element.addEventListener('mouseout', function handleMouseOut() {
@@ -108,12 +126,31 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
 
     } else {
         // Normal Mode Attributes
-        span.innerText = getAppendContent(productPrice, settings.salary);
+        let innerSpan = document.createElement("span")
+        innerSpan.innerText = getAppendContent(productPrice, settings.salary);
+        span.appendChild(innerSpan)
         if (!isPriceRange) {
             span.setAttribute("style", "display:block");
             desiredElement.setAttribute("title", `It will take you ${getTimeTakenToEarn(productPrice, settings.salary)} to earn ${productPrice}`);
         }
     }
+}
+
+function addClassBasedOnColourCode(element, colourCodePrices, days) {    
+    if (colourCodePrices) {
+        if (days <= 30)
+            element.classList.add("affordable-highlight-primary")
+        else if (days > 30 && days <= 180)
+            element.classList.add("affordable-highlight-secondary")
+        else
+            element.classList.add("affordable-highlight-tertiary")
+    } else {
+        element.classList.add("affordable-highlight-primary")
+    }
+}
+
+function getColourCode(price) {
+
 }
 
 function parseElementValue(elementValue) {
@@ -150,6 +187,21 @@ function undoUpdates() {
     elements = document.querySelectorAll(".hover-mode")
     elements.forEach((element) => {
         element.classList.remove("hover-mode")
+    })
+
+    elements = document.querySelectorAll(".affordable-highlight-primary")
+    elements.forEach((element) => {
+        element.classList.remove("affordable-highlight-primary")
+    })
+
+    elements = document.querySelectorAll(".affordable-highlight-secondary")
+    elements.forEach((element) => {
+        element.classList.remove("affordable-highlight-secondary")
+    })
+
+    elements = document.querySelectorAll(".affordable-highlight-tertiary")
+    elements.forEach((element) => {
+        element.classList.remove("affordable-highlight-tertiary")
     })
 
 }

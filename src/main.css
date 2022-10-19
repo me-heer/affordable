@@ -1,0 +1,28 @@
+:root {
+    --affordable-primary: #93e9be;
+    --affordable-secondary: #9393e9;
+    --affordable-tertiary: #e993be;
+    --affordable-budget: #ff6060;
+}
+
+
+.affordable-highlight-primary {
+    background-image: linear-gradient(var(--affordable-primary), var(--affordable-primary)) !important;
+    background-position: 0% 90% !important;
+    background-repeat: no-repeat !important;
+    background-size: 100% 15% !important;
+}
+
+.affordable-highlight-secondary {
+    background-image: linear-gradient(var(--affordable-secondary), var(--affordable-secondary)) !important;
+    background-position: 0% 90% !important;
+    background-repeat: no-repeat !important;
+    background-size: 100% 15% !important;
+}
+
+.affordable-highlight-tertiary {
+    background-image: linear-gradient(var(--affordable-tertiary), var(--affordable-tertiary)) !important;
+    background-position: 0% 90% !important;
+    background-repeat: no-repeat !important;
+    background-size: 100% 15% !important;
+}

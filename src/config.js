@@ -1,4 +1,4 @@
-const refreshRateInMillis = 500;
+const refreshRateInMillis = 1000;
 
 const brackets = {
     left: "(", right: ")"
@@ -15,20 +15,17 @@ const AMAZON = {
         {
             className: ".a-price",
             getter: ["firstChild", "textContent"],
-            setter: ["lastChild"],
-            elementGetter: ["firstChild"]
+            setter: ["lastChild"]
         },
         {
             className: ".a-color-price",
             getter: ["textContent"],
-            setter: [],
-            elementGetter: []
+            setter: []
         },
         {
             className: ".a-size-base-plus",
             getter: ["textContent"],
-            setter: [],
-            elementGetter: []
+            setter: []
         }
     ]
 }
@@ -55,8 +52,7 @@ const MYNTRA = {
         {
             className: ".pdp-price",
             getter: ["firstChild", "textContent"],
-            setter: ["firstChild"],
-            elementGetter: ["firstChild"]
+            setter: ["firstChild"]
         },
         {
             className: ".product-item-selling-price",

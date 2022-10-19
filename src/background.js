@@ -1,7 +1,8 @@
 let defaultSettings = {
     salary: "5000",
     hoverMode: false,
-    disabledSites: []
+    disabledSites: [],
+    colourCodePrices: true,
 }
 
 chrome.runtime.onInstalled.addListener(setConfigs);

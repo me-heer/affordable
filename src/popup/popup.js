@@ -10,7 +10,7 @@ function populateDefaultValues() {
             hoverModeToggle.setAttribute('checked', 'checked')
         }
 
-        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {            
+        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
             let disableForThisSiteText = document.getElementById('disableForThisSiteText')
             const currentUrl = new URL(tabs[0].url);
             disableForThisSiteText.textContent = `${currentUrl.hostname}`
@@ -27,18 +27,27 @@ function populateDefaultValues() {
         if (disabled === true) {
             disableExtensionToggle.setAttribute('checked', 'checked')
         }
+
+        const colourCodePrices = settings.colourCodePrices;
+        let colourCodeToggle = document.getElementById('colourCodeToggle')
+        if (colourCodePrices === true) {
+            colourCodeToggle.setAttribute('checked', 'checked')
+        }
     });
 }
 
 function sendMessage() {
-    try {
-        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-            var activeTab = tabs[0];
-            chrome.tabs.sendMessage(activeTab.id, { "message": "undo" });
+
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+
+        var activeTab = tabs[0];
+        chrome.tabs.sendMessage(activeTab.id, { "message": "undo" }, (result) => {
+            if (chrome.runtime.lastError) {
+                // Handle last error
+                console.log("Failed to send undo message. Desired webpage may not be open right now.")
+            }
         });
-    } catch (e) {
-        console.log("Failed to send undo message. Desired webpage may not be open right now.")
-    }
+    });
 }
 
 function updateSalary() {
@@ -107,9 +116,21 @@ function addDisableForThisSiteUpdateListener() {
 function addDisableExtensionListener() {
     let disableExtensionToggle = document.getElementById('disableExtensionToggle');
     disableExtensionToggle.addEventListener('change', () => {
-        
+
         chrome.storage.sync.get("settings", ({ settings }) => {
             settings.disabled = disableExtensionToggle.checked
+            chrome.storage.sync.set({ settings });
+        })
+        sendMessage()
+    });
+}
+
+function addColourCodePriceListener() {
+    let colourCodeToggle = document.getElementById('colourCodeToggle');
+    colourCodeToggle.addEventListener('change', () => {
+
+        chrome.storage.sync.get("settings", ({ settings }) => {
+            settings.colourCodePrices = colourCodeToggle.checked
             chrome.storage.sync.set({ settings });
         })
         sendMessage()
@@ -120,4 +141,5 @@ populateDefaultValues();
 addSalaryUpdateListener();
 addHoverModeUpdateListener();
 addDisableForThisSiteUpdateListener();
-addDisableExtensionListener()
+addDisableExtensionListener();
+addColourCodePriceListener();

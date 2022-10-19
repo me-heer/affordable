@@ -2,28 +2,36 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="popup.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     <div class="container">
-        <div class="row" style="padding-top: 20px">
+        <div class="row">
             <div class="col affordable-title text-center">
-                Affordable
+                <span class="affordable-highlight">Affordable</span>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="salary" value="5000">
-                    <label for="salary">Your monthly salary/compensation</label>
+                    <input type="number" class="form-control" id="salary" value="5000">
+                    <label for="salary">🧑‍💻 Your monthly salary/compensation in your currency</label>
+                    <i class="salary_input" style="font-size: smaller;"></i>
                     <i hidden="hidden" class="salary_input" id="salary_updated_status" style="font-size: smaller;"></i>
-                    <i class="salary_input" style="font-size: smaller;">(This data stays in your browser and is only
-                        used locally)</i>
+                    <p class="salary_input" style="font-size: smaller; opacity: 0.6;">(This data stays in your browser
+                        and is only
+                        used locally)</p>
                 </div>
             </div>
         </div>
@@ -31,14 +39,14 @@
             <div class="col">
                 <div class="form-check form-switch mb-3">
                     <input class="form-check-input" type="checkbox" role="switch" id="hoverModeToggle">
-                    <label class="form-check-label" for="hoverModeToggle">Hover mode</label>
-                    <i style="font-size: smaller; display: block">Only show price conversion on hovering the product
-                        price</i>
+                    <label class="form-check-label" for="hoverModeToggle">🖱️ Hover mode</label>
+                    <p style="font-size: smaller; display: block; opacity: 0.6;">Only show price conversion on hovering
+                        the product price</p>
                 </div>
             </div>
         </div>
         <!-- 
-    <hr>
+            <hr>
 
     <div class="row">
         <div class="col text-center">
@@ -46,7 +54,7 @@
                 <a class="btn btn-outline-light custom-bg-gradient" data-bs-toggle="collapse" href="#collapseExample" role="button"
                    aria-expanded="false"
                    aria-controls="collapseExample">
-                    How it works
+                   How it works
                 </a>
             </p>
             <div class="collapse" id="collapseExample" style="padding-bottom: 20px">
@@ -58,17 +66,42 @@
             </div>
         </div>
     </div>
-
+    
     <hr> -->
+        <div class="row">
+            <div class="col">
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input btn-danger" type="checkbox" role="switch" id="colourCodeToggle">
+                    <label class="form-check-label" for="colourCodeToggle">🌈 Colour Code Prices</label>
+                    <p style="font-size: smaller; display: block; opacity: 0.6;">Highlight prices with a different
+                        colour based on the time it takes to buy</p>
+                    <div style="margin: 5px">
+                        <div class='box' style="background-color: var(--affordable-primary);"></div><span
+                            style="margin: 5px;">less than 30 days</span> <span
+                            class="affordable-highlight-primary">(like this)</span>
+                    </div>
+                    <div style="margin: 5px">
+                        <div class='box' style="background-color: var(--affordable-secondary);"></div><span
+                            style="margin: 5px;">1 month to 6 months</span><span
+                            class="affordable-highlight-secondary">(like this)</span>
+                    </div>
+                    <div style="margin: 5px">
+                        <div class='box' style="background-color: var(--affordable-tertiary);"></div><span
+                            style="margin: 5px;">more than 6 months</span><span
+                            class="affordable-highlight-tertiary">(like this)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col">
                 <div class="form-check form-switch mb-3">
                     <input class="form-check-input btn-danger" type="checkbox" role="switch"
                         id="disableForThisSiteToggle">
-                    <label class="form-check-label" for="disableForThisSiteToggle">Disable for this site</label>
-                    <i style="font-size: smaller; display: block">Do not show price conversion for <b
-                            id="disableForThisSiteText" style="font-weight: 600;"></b></i>
+                    <label class="form-check-label" for="disableForThisSiteToggle">🚧 Disable for this site</label>
+                    <p style="font-size: smaller; display: block; opacity: 0.6;">Do not show price conversion for <b
+                            id="disableForThisSiteText" style="font-weight: 600;"></b></p>
                 </div>
             </div>
         </div>
@@ -78,12 +111,13 @@
                 <div class="form-check form-switch mb-3">
                     <input class="form-check-input btn-danger" type="checkbox" role="switch"
                         id="disableExtensionToggle">
-                    <label class="form-check-label" for="disableExtensionToggle">Disable extension for all sites</label>
-                    <i style="font-size: smaller; display: block">Disable showing price conversion for <b
-                            id="disableForThisSiteText" style="font-weight: 600;">all sites</b></i>
+                    <label class="form-check-label" for="disableExtensionToggle">🧱 Disable for all sites</label>
+                    <p style="font-size: smaller; display: block; opacity: 0.6;">Disable showing price conversion for <b
+                            id="disableForThisSiteText" style="font-weight: 600;">all sites</b></p>
                 </div>
             </div>
         </div>
+
     </div>
     <script src="popup.js"></script>
     <script src="../bootstrap/bootstrap.bundle.min.js"></script>

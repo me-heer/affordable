@@ -12,6 +12,7 @@
     {
       "matches": ["https://*/*"],
       "run_at": "document_end",
+      "css": ["main.css"],
       "js": [ "config.js", "main.js", "lib/currency.js", "content.js"]
     }
   ],
