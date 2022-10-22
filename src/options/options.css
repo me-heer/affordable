@@ -1,0 +1,89 @@
+body {
+    font-family: "JetBrains Mono" !important;
+    background-color: black !important;
+    width: 550px;
+    overflow: hidden;
+    color: white !important;
+}
+
+.form-control {
+    background-color: black !important;
+    color: var(--affordable-primary) !important;
+    font-weight: 700;
+}
+
+.affordable-title {
+    font-weight: 700;
+    font-size: x-large;
+    color: white;
+    text-shadow: var(--affordable-secondary) 1px 0 30px;
+    margin: 10px;
+}
+
+
+.container {
+    margin: 2px
+}
+
+.form-switch .form-check-input {
+    background-color: black;
+    border-color: white;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='white'/%3e%3c/svg%3e") !important;
+}
+
+.form-switch .form-check-input:focus {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='white'/%3e%3c/svg%3e") !important;
+    border-color: var(--affordable-primary) !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(147, 233, 190, 1) !important;
+}
+
+.form-switch .form-check-input:checked {
+    background-color: var(--affordable-primary);
+    border-color: white;
+}
+
+.form-control:focus {
+    border-color: var(--affordable-primary) !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(147, 233, 190, 1) !important;
+}
+
+.box {
+    float: left;
+    height: 30px;
+    width: 30px;
+    border: 1px solid black;
+    clear: both;
+}
+
+.affordable-highlight-primary {
+    background-image: linear-gradient(var(--affordable-primary), var(--affordable-primary)) !important;
+    background-position: 0% 90% !important;
+    background-repeat: no-repeat !important;
+    background-size: 100% 15% !important;
+}
+
+.affordable-highlight-secondary {
+    background-image: linear-gradient(var(--affordable-secondary), var(--affordable-secondary)) !important;
+    background-position: 0% 90% !important;
+    background-repeat: no-repeat !important;
+    background-size: 100% 15% !important;
+}
+
+.affordable-highlight-tertiary {
+    background-image: linear-gradient(var(--affordable-tertiary), var(--affordable-tertiary)) !important;
+    background-position: 0% 90% !important;
+    background-repeat: no-repeat !important;
+    background-size: 100% 15% !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
