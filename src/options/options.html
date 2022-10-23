@@ -15,10 +15,62 @@
 </head>
 
 <body>
-    <div class="container">
+    <img src = "../images/affordable.svg" alt="Affordable Icon" style="margin-left: auto; margin-right: auto; display:block; width:30%"/>
+
+    <div class="d-flex flex-column justify-content-center">
         <div class="row">
-            <div class="col affordable-title text-center">
-                <span class="affordable-highlight">Affordable</span>
+            <div class="col affordable-title">
+                <span class="">Affordable</span>
+                <div class="affordable-subtitle">Calculate the time it takes to earn what you spend</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="how-it-works">
+                    How it works
+                </div>
+                <ul>
+                    <li style="margin: 10px;">
+                        This extension shows you how many days it would take you to earn the amount that you are
+                        spending online.
+                    </li>
+                    <li style="margin: 10px;">
+                        Based on the product price amount, it calculates the time it would take you to pay for the
+                        product by dividing the price amount by 30 (days in a month).
+                    </li>
+                    <li style="margin: 10px;">
+                        On supported online shopping websites, along with each product price, this extension will
+                        show the number of days calculated and highlight the price according to the colour settings set
+                        below.
+                    </li>
+
+                    <li style="margin: 10px;">
+                        It is assumed that the currency in which you shop is the same currency in which you earn, and
+                        hence, you only need to enter the salary amount without currency
+                    </li>
+                </ul>
+
+
+                <p>
+                    <a class="supported-websites" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        List of supported websites
+                    </a>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        <ul>
+                            <li>Amazon</li>
+                            <li>Flipkart</li>
+                            <li>Ajio</li>
+                            <li>Myntra</li>
+                            <li>eBay</li>
+                            <li>Your site not listed? <a href="https://github.com/me-heer/affordable/issues/new">Let me
+                                    know here</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -45,63 +97,48 @@
                 </div>
             </div>
         </div>
-        <!-- 
-            <hr>
 
-    <div class="row">
-        <div class="col text-center">
-            <p>
-                <a class="btn btn-outline-light custom-bg-gradient" data-bs-toggle="collapse" href="#collapseExample" role="button"
-                   aria-expanded="false"
-                   aria-controls="collapseExample">
-                   How it works
-                </a>
-            </p>
-            <div class="collapse" id="collapseExample" style="padding-bottom: 20px">
-                <div class="card card-body">
-                    Some placeholder content for the collapse component. This panel is hidden by default but revealed
-                    when the
-                    user activates the relevant trigger.
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <hr> -->
+
         <div class="row">
             <div class="col">
                 <div class="form-check form-switch mb-3">
                     <input class="form-check-input btn-danger" type="checkbox" role="switch" id="colourCodeToggle">
-                    <label class="form-check-label" for="colourCodeToggle">🌈 Colour Code Prices</label>
-                    <p style="font-size: smaller; display: block; opacity: 0.6;">Highlight prices with a different
+                    <label class="form-check-label" for="colourCodeToggle">🌈 Colour Code Text</label>
+                    <p style="font-size: smaller; display: block; opacity: 0.6;">Show price-conversion text with a
+                        different
                         colour based on the time it takes to buy</p>
-                    <div style="margin: 5px">
-                        <div class='box' style="background-color: var(--affordable-primary);"></div><span
-                            style="margin: 5px;">less than 30 days</span> <span
-                            class="affordable-highlight-primary">(like this)</span>
-                    </div>
-                    <div style="margin: 5px">
-                        <div class='box' style="background-color: var(--affordable-secondary);"></div><span
-                            style="margin: 5px;">1 month to 6 months</span><span
-                            class="affordable-highlight-secondary">(like this)</span>
-                    </div>
-                    <div style="margin: 5px">
-                        <div class='box' style="background-color: var(--affordable-tertiary);"></div><span
-                            style="margin: 5px;">more than 6 months</span><span
-                            class="affordable-highlight-tertiary">(like this)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col">
-                <div class="form-check form-switch mb-3">
-                    <input class="form-check-input btn-danger" type="checkbox" role="switch"
-                        id="disableForThisSiteToggle">
-                    <label class="form-check-label" for="disableForThisSiteToggle">🚧 Disable for this site</label>
-                    <p style="font-size: smaller; display: block; opacity: 0.6;">Do not show price conversion for <b
-                            id="disableForThisSiteText" style="font-weight: 600;"></b></p>
+                    <ul>
+                        <li>
+                            <span style="color: var(--affordable-highlight-primary);">GREEN</span>
+                            less than 30 days (e.g.:
+                            <span style="color: var(--affordable-highlight-primary)">23 days</span>)
+                            <p style="font-size: smaller; opacity: 0.6; margin-left: 5px;">Products that
+                                cost
+                                less than 30 days of effort can mostly be bought with a conscious thought process and
+                                does not
+                                require much prior planning</p>
+                        </li>
+                        <li>
+                            <span style="color: var(--affordable-highlight-secondary);">YELLOW</span>
+                            1 month to 3 months (e.g.:
+                            <span style="color: var(--affordable-highlight-secondary);">2 months, 8 days</span>)
+                            <p style="font-size: smaller; opacity: 0.6; margin-left: 5px;">Products in
+                                this range
+                                should only be bought with proper planning and we should try to
+                                ensure the product entirely justifies its purpose.</p>
+                        </li>
+
+                        <li>
+                            <span style="color: var(--affordable-highlight-tertiary);">RED</span>
+                            more than 3 months (e.g.:
+                            <span style="color: var(--affordable-highlight-tertiary);">7 months</span>)
+                            <p style="font-size: smaller; opacity: 0.6; margin-left: 5px;">Products that cost more than
+                                3 months of effort
+                                are expensive products that will cost us time and money. We should
+                                very carefully examine our use cases and buying choices before buying.</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -113,12 +150,36 @@
                         id="disableExtensionToggle">
                     <label class="form-check-label" for="disableExtensionToggle">🧱 Disable for all sites</label>
                     <p style="font-size: smaller; display: block; opacity: 0.6;">Disable showing price conversion for <b
-                            id="disableForThisSiteText" style="font-weight: 600;">all sites</b></p>
+                            style="font-weight: 600;">all sites</b></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                Custom Price Conversion
+                <p style="font-size: smaller; display: block; opacity: 0.6;">Count the time it takes to pay for custom
+                    price</p>
+                <div class="row">
+
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="custom_price" value="">
+                            <label for="custom_price">Custom Price Amount</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        Result
+                        <i hidden="hidden" id="custom_price_result"
+                            style="display: block; color: var(--affordable-primary);"></i>
+                    </div>
+
                 </div>
             </div>
         </div>
 
     </div>
+    <script src="../main.js"></script>
     <script src="options.js"></script>
     <script src="../bootstrap/bootstrap.bundle.min.js"></script>
 

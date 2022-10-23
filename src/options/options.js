@@ -10,18 +10,6 @@ function populateDefaultValues() {
             hoverModeToggle.setAttribute('checked', 'checked')
         }
 
-        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-            let disableForThisSiteText = document.getElementById('disableForThisSiteText')
-            const currentUrl = new URL(tabs[0].url);
-            disableForThisSiteText.textContent = `${currentUrl.hostname}`
-
-
-            let disableForThisSiteToggle = document.getElementById('disableForThisSiteToggle')
-            if (settings.disabledSites.includes(currentUrl.hostname)) {
-                disableForThisSiteToggle.setAttribute('checked', 'checked')
-            }
-        });
-
         let disableExtensionToggle = document.getElementById('disableExtensionToggle')
         const disabled = settings.disabled
         if (disabled === true) {
@@ -89,29 +77,6 @@ function addHoverModeUpdateListener() {
     });
 }
 
-function addDisableForThisSiteUpdateListener() {
-    let disableForThisSiteToggle = document.getElementById('disableForThisSiteToggle');
-    disableForThisSiteToggle.addEventListener('change', () => {
-
-        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-
-            chrome.storage.sync.get("settings", ({ settings }) => {
-                disabledSites = settings.disabledSites
-                const currentUrl = new URL(tabs[0].url);
-                if (disableForThisSiteToggle.checked) {
-                    // add site
-                    disabledSites.push(currentUrl.hostname)
-                } else {
-                    // remove site
-                    disabledSites = disabledSites.filter(item => item !== currentUrl.hostname)
-                }
-                settings.disabledSites = disabledSites
-                chrome.storage.sync.set({ settings });
-            })
-            sendMessage()
-        });
-    });
-}
 
 function addDisableExtensionListener() {
     let disableExtensionToggle = document.getElementById('disableExtensionToggle');
@@ -136,10 +101,32 @@ function addColourCodePriceListener() {
         sendMessage()
     });
 }
+function addResultUpdateListener() {
+    //setup before functions
+    let typingTimer;                //timer identifier
+    let doneTypingInterval = 100;  //time in ms (5 seconds)
+    let customPriceInput = document.getElementById('custom_price');
+
+    //on keyup, start the countdown
+    customPriceInput.addEventListener('keyup', () => {
+        clearTimeout(typingTimer);
+        if (customPriceInput.value) {
+            typingTimer = setTimeout(updateResult, doneTypingInterval);
+        }
+    });
+}
+
+function updateResult() {
+    let customPriceInput = document.getElementById("custom_price").value;
+    let customPriceResult = document.getElementById('custom_price_result')
+    customPriceResult.hidden = false;
+    let result = getTimeTakenToEarn(customPriceInput, document.getElementById("salary").value)
+    customPriceResult.textContent = `${result}`
+}
 
 populateDefaultValues();
 addSalaryUpdateListener();
 addHoverModeUpdateListener();
-addDisableForThisSiteUpdateListener();
 addDisableExtensionListener();
 addColourCodePriceListener();
+addResultUpdateListener();

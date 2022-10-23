@@ -1,9 +1,9 @@
 body {
     font-family: "JetBrains Mono" !important;
     background-color: black !important;
-    width: 550px;
-    overflow: hidden;
     color: white !important;
+    margin-left: 25%;
+    margin-right: 25%;
 }
 
 .form-control {
@@ -14,12 +14,30 @@ body {
 
 .affordable-title {
     font-weight: 700;
-    font-size: x-large;
+    font-size: xx-large;
     color: white;
-    text-shadow: var(--affordable-secondary) 1px 0 30px;
-    margin: 10px;
+    text-shadow: var(--affordable-primary) 1px 0 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
+.affordable-subtitle {
+    font-weight: 500;
+    font-size: large;
+    color: white;
+    text-shadow: none;
+}
+
+.how-it-works {
+    font-weight: 500;
+    font-size: x-large;
+    color: var(--affordable-primary);
+}
+
+.card-body {
+    background-color: black !important;
+}
 
 .container {
     margin: 2px
@@ -51,39 +69,27 @@ body {
     float: left;
     height: 30px;
     width: 30px;
+    border-radius: 50%;
     border: 1px solid black;
     clear: both;
-}
-
-.affordable-highlight-primary {
-    background-image: linear-gradient(var(--affordable-primary), var(--affordable-primary)) !important;
-    background-position: 0% 90% !important;
-    background-repeat: no-repeat !important;
-    background-size: 100% 15% !important;
-}
-
-.affordable-highlight-secondary {
-    background-image: linear-gradient(var(--affordable-secondary), var(--affordable-secondary)) !important;
-    background-position: 0% 90% !important;
-    background-repeat: no-repeat !important;
-    background-size: 100% 15% !important;
-}
-
-.affordable-highlight-tertiary {
-    background-image: linear-gradient(var(--affordable-tertiary), var(--affordable-tertiary)) !important;
-    background-position: 0% 90% !important;
-    background-repeat: no-repeat !important;
-    background-size: 100% 15% !important;
 }
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.supported-websites {
+    color: var(--affordable-primary);
+}
+
+.supported-websites:hover {
+    color: white;
 }
