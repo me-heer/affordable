@@ -12,12 +12,10 @@ function getAppendContent(productPrice, salary) {
 }
 
 function getTimeTakenToEarn(productPrice, monthlySalary) {
-    if (debugMode)
-        return productPrice
     let timeTakenToEarn = parseInt(productPrice * (30 / monthlySalary));
     if (timeTakenToEarn === 0) return "<1 day";
     if (timeTakenToEarn === 1) return "1 day";
-    if ((timeTakenToEarn / 30) > 1) {
+    if (timeTakenToEarn >= 30) {
         // More than 1 month
         let months = Math.floor(timeTakenToEarn / 30)
         if (months === 1)
@@ -25,9 +23,11 @@ function getTimeTakenToEarn(productPrice, monthlySalary) {
         else
             months = months + " months"
         let days = (timeTakenToEarn % 30)
-        if (days === 1)
+        if (days == 0)
+            return months
+        else if (days === 1)
             days = days + " day"
-        else 
+        else
             days = days + " days"
         return months + ", " + days
     }
@@ -107,10 +107,6 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
     span.setAttribute('id', 'affordable');
     desiredElement.appendChild(span);
 
-    if (settings.colourCodePrices) {
-        addClassBasedOnColourCode(element, true, getDays(productPrice, settings.salary))
-    }
-
     if (settings.hoverMode) {
         // Hover Mode Attributes
         span.setAttribute('style', 'display:none');
@@ -127,6 +123,9 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
     } else {
         // Normal Mode Attributes
         let innerSpan = document.createElement("span")
+        if (settings.colourCodePrices) {
+            addFontDetailsBasedOnColourCode(innerSpan, true, getDays(productPrice, settings.salary))
+        }
         innerSpan.innerText = getAppendContent(productPrice, settings.salary);
         span.appendChild(innerSpan)
         if (!isPriceRange) {
@@ -136,7 +135,20 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
     }
 }
 
-function addClassBasedOnColourCode(element, colourCodePrices, days) {    
+function addFontDetailsBasedOnColourCode(element, colourCodePrices, days) {
+    let defaultStyleAttributes = 'font-family: JetBrains Mono; font-size:medium;'
+    if (colourCodePrices) {
+        if (days <= 30)
+            defaultStyleAttributes += 'color: var(--affordable-highlight-primary)'
+        else if (days > 30 && days <= 90)
+            defaultStyleAttributes += 'color: var(--affordable-highlight-secondary)'
+        else
+            defaultStyleAttributes += 'color: var(--affordable-highlight-tertiary)'
+    }
+    element.setAttribute('style', defaultStyleAttributes)
+}
+
+function addClassBasedOnColourCode(element, colourCodePrices, days) {
     if (colourCodePrices) {
         if (days <= 30)
             element.classList.add("affordable-highlight-primary")
@@ -147,10 +159,6 @@ function addClassBasedOnColourCode(element, colourCodePrices, days) {
     } else {
         element.classList.add("affordable-highlight-primary")
     }
-}
-
-function getColourCode(price) {
-
 }
 
 function parseElementValue(elementValue) {

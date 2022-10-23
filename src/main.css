@@ -3,6 +3,10 @@
     --affordable-secondary: #9393e9;
     --affordable-tertiary: #e993be;
     --affordable-budget: #ff6060;
+
+    --affordable-highlight-primary: #39bb41;
+    --affordable-highlight-secondary: #c2c200;
+    --affordable-highlight-tertiary: #d02e2e;
 }
 
 
@@ -10,19 +14,19 @@
     background-image: linear-gradient(var(--affordable-primary), var(--affordable-primary)) !important;
     background-position: 0% 90% !important;
     background-repeat: no-repeat !important;
-    background-size: 100% 15% !important;
+    background-size: 100% 8% !important;
 }
 
 .affordable-highlight-secondary {
     background-image: linear-gradient(var(--affordable-secondary), var(--affordable-secondary)) !important;
     background-position: 0% 90% !important;
     background-repeat: no-repeat !important;
-    background-size: 100% 15% !important;
+    background-size: 100% 8% !important;
 }
 
 .affordable-highlight-tertiary {
     background-image: linear-gradient(var(--affordable-tertiary), var(--affordable-tertiary)) !important;
     background-position: 0% 90% !important;
     background-repeat: no-repeat !important;
-    background-size: 100% 15% !important;
+    background-size: 100% 8% !important;
 }

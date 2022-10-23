@@ -9,4 +9,6 @@ chrome.runtime.onInstalled.addListener(setConfigs);
 
 function setConfigs() {
     chrome.storage.sync.set({settings: defaultSettings});
+
+    chrome.runtime.openOptionsPage();
 }
