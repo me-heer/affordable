@@ -27,9 +27,9 @@
                 <div class="form-floating mb-3">
                     <input type="number" class="form-control" id="salary" value="5000">
                     <label for="salary">🧑‍💻 Your monthly salary/compensation in your currency</label>
-                    <i class="salary_input" style="font-size: smaller;"></i>
-                    <i hidden="hidden" class="salary_input" id="salary_updated_status" style="font-size: smaller;"></i>
-                    <p class="salary_input" style="font-size: smaller; opacity: 0.6;">(This data stays in your browser
+                    <i style="font-size: smaller;"></i>
+                    <i hidden="hidden" id="salary_updated_status" style="font-size: smaller;"></i>
+                    <p style="font-size: smaller; opacity: 0.6;">(This data stays in your browser
                         and is only
                         used locally)</p>
                 </div>
@@ -72,24 +72,11 @@
             <div class="col">
                 <div class="form-check form-switch mb-3">
                     <input class="form-check-input btn-danger" type="checkbox" role="switch" id="colourCodeToggle">
-                    <label class="form-check-label" for="colourCodeToggle">🌈 Colour Code Prices</label>
-                    <p style="font-size: smaller; display: block; opacity: 0.6;">Highlight prices with a different
+                    <label class="form-check-label" for="colourCodeToggle">🌈 Colour Code Text</label>
+                    <p style="font-size: smaller; display: block; opacity: 0.6;">Show price-conversion text with a
+                        different
                         colour based on the time it takes to buy</p>
-                    <div style="margin: 5px">
-                        <div class='box' style="background-color: var(--affordable-primary);"></div><span
-                            style="margin: 5px;">less than 30 days</span> <span
-                            class="affordable-highlight-primary">(like this)</span>
-                    </div>
-                    <div style="margin: 5px">
-                        <div class='box' style="background-color: var(--affordable-secondary);"></div><span
-                            style="margin: 5px;">1 month to 6 months</span><span
-                            class="affordable-highlight-secondary">(like this)</span>
-                    </div>
-                    <div style="margin: 5px">
-                        <div class='box' style="background-color: var(--affordable-tertiary);"></div><span
-                            style="margin: 5px;">more than 6 months</span><span
-                            class="affordable-highlight-tertiary">(like this)</span>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -113,12 +100,34 @@
                         id="disableExtensionToggle">
                     <label class="form-check-label" for="disableExtensionToggle">🧱 Disable for all sites</label>
                     <p style="font-size: smaller; display: block; opacity: 0.6;">Disable showing price conversion for <b
-                            id="disableForThisSiteText" style="font-weight: 600;">all sites</b></p>
+                            style="font-weight: 600;">all sites</b></p>
                 </div>
             </div>
         </div>
 
+        <div class="row">
+            <div class="col">
+                Custom Price Conversion
+                <p style="font-size: smaller; display: block; opacity: 0.6;">Count the time it takes to pay for custom
+                    price</p>
+                <div class="row">
+
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="custom_price" value="">
+                            <label for="custom_price">Custom Price Amount</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        Result
+                        <i hidden="hidden" id="custom_price_result" style="display: block; color: var(--affordable-primary);"></i>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
+    <script src="../main.js"></script>
     <script src="popup.js"></script>
     <script src="../bootstrap/bootstrap.bundle.min.js"></script>
 

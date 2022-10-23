@@ -137,9 +137,33 @@ function addColourCodePriceListener() {
     });
 }
 
+function addResultUpdateListener() {
+    //setup before functions
+    let typingTimer;                //timer identifier
+    let doneTypingInterval = 100;  //time in ms (5 seconds)
+    let customPriceInput = document.getElementById('custom_price');
+
+    //on keyup, start the countdown
+    customPriceInput.addEventListener('keyup', () => {
+        clearTimeout(typingTimer);
+        if (customPriceInput.value) {
+            typingTimer = setTimeout(updateResult, doneTypingInterval);
+        }
+    });
+}
+
+function updateResult() {
+    let customPriceInput = document.getElementById("custom_price").value;
+    let customPriceResult = document.getElementById('custom_price_result')
+    customPriceResult.hidden = false;
+    let result = getTimeTakenToEarn(customPriceInput, document.getElementById("salary").value)
+    customPriceResult.textContent = `${result}`
+}
+
 populateDefaultValues();
 addSalaryUpdateListener();
 addHoverModeUpdateListener();
 addDisableForThisSiteUpdateListener();
 addDisableExtensionListener();
 addColourCodePriceListener();
+addResultUpdateListener();
