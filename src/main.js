@@ -51,6 +51,7 @@ function isASentence(element, elementInfo) {
     return priceStr.toString().split(" ").length > 1
         && !priceStr.includes("Rs.")
         && !priceStr.includes("US")
+        && !priceStr.includes("R ")
         && (!priceStr.includes("to") || priceStr.includes("stock"));
 }
 
@@ -186,6 +187,9 @@ function fetchConfigBasedOnWebsite() {
         ecommerce = AJIO;
     else if (currentUrl.hostname.includes('ebay'))
         ecommerce = EBAY;
+    else if (currentUrl.hostname.includes('takealot')) {
+        ecommerce = TAKEALOT;
+    }
     return ecommerce;
 }
 

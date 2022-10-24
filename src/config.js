@@ -134,4 +134,17 @@ const EBAY = {
     ]
 }
 
+
+const TAKEALOT = {
+    blacklistedClasses: [],
+    elements: [
+        {
+            className: ".currency",
+            getter: ["textContent"],
+            setter: []
+        }
+    ]
+}
+
+
 const AFFORDABLE_ID = "#affordable"
