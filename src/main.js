@@ -136,7 +136,7 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
 }
 
 function addFontDetailsBasedOnColourCode(element, colourCodePrices, days) {
-    let defaultStyleAttributes = 'font-family: JetBrains Mono; font-size:medium;'
+    let defaultStyleAttributes = ''
     if (colourCodePrices) {
         if (days <= 30)
             defaultStyleAttributes += 'color: var(--affordable-highlight-primary)'

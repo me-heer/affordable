@@ -1,5 +1,5 @@
 body {
-    font-family: "JetBrains Mono" !important;
+    font-family: "JetBrains Mono", 'Courier New', Courier, monospace !important;
     background-color: black !important;
     color: white !important;
     margin-left: 25%;
