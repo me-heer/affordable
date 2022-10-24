@@ -113,7 +113,7 @@ const EBAY = {
         },
         {
             className: ".mainPrice",
-            getter: ["firstElementChild","firstElementChild","textContent"],
+            getter: ["firstElementChild", "firstElementChild", "textContent"],
             setter: []
         },
         {
@@ -159,6 +159,43 @@ const MEESHO = {
             setter: []
         }
     ]
+}
+
+const OLX = {
+    blacklistedClasses: [],
+    elements: [
+        {
+            className: "._2Ks63",
+            getter: ["textContent"],
+            setter: []
+        },
+        {
+            className: ".T8y-z",
+            getter: ["textContent"],
+            setter: []
+        },
+        {
+            className: ".boost-pfs-filter-product-item-regular-price",
+            getter: ["textContent"],
+            setter: []
+        },
+        {
+            className: "._1zgtX",
+            getter: ["textContent"],
+            setter: []
+        },
+        {
+            className: "._1uqlc",
+            getter: ["textContent"],
+            setter: []
+        },
+        {
+            className: ".price",
+            getter: ["textContent"],
+            setter: []
+        }
+    ]
+
 }
 
 const AFFORDABLE_ID = "#affordable"

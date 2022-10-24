@@ -52,6 +52,8 @@ function isASentence(element, elementInfo) {
         && !priceStr.includes("Rs.")
         && !priceStr.includes("US")
         && !priceStr.includes("R ")
+        && !priceStr.includes("From Rs. ")
+        && !priceStr.includes("₹ ")
         && !priceStr.includes("onwards")
         && (!priceStr.includes("to") || priceStr.includes("stock"));
 }
@@ -167,10 +169,10 @@ function addClassBasedOnColourCode(element, colourCodePrices, days) {
 function parseElementValue(elementValue) {
     let parsed = elementValue;
 
-    if (elementValue) {
-        parsed = elementValue.replace("Rs.", "")
-        parsed = elementValue.replace("US", "")
-    }
+    parsed = parsed.replace("Rs.", "")
+    parsed = parsed.replace("Rs. ", "")
+    parsed = parsed.replace("From Rs. ", "")
+    parsed = parsed.replace("US", "")
 
     return parsed
 }
@@ -188,10 +190,12 @@ function fetchConfigBasedOnWebsite() {
         ecommerce = AJIO;
     else if (currentUrl.hostname.includes('ebay'))
         ecommerce = EBAY;
-    else if (currentUrl.hostname.includes('takealot')) 
+    else if (currentUrl.hostname.includes('takealot'))
         ecommerce = TAKEALOT;
-    else if (currentUrl.hostname.includes('meesho')) 
+    else if (currentUrl.hostname.includes('meesho'))
         ecommerce = MEESHO;
+    else if (currentUrl.hostname.includes('olx'))
+        ecommerce = OLX;
     return ecommerce;
 }
 
