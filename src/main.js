@@ -52,6 +52,7 @@ function isASentence(element, elementInfo) {
         && !priceStr.includes("Rs.")
         && !priceStr.includes("US")
         && !priceStr.includes("R ")
+        && !priceStr.includes("onwards")
         && (!priceStr.includes("to") || priceStr.includes("stock"));
 }
 
@@ -187,9 +188,10 @@ function fetchConfigBasedOnWebsite() {
         ecommerce = AJIO;
     else if (currentUrl.hostname.includes('ebay'))
         ecommerce = EBAY;
-    else if (currentUrl.hostname.includes('takealot')) {
+    else if (currentUrl.hostname.includes('takealot')) 
         ecommerce = TAKEALOT;
-    }
+    else if (currentUrl.hostname.includes('meesho')) 
+        ecommerce = MEESHO;
     return ecommerce;
 }
 

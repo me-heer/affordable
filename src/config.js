@@ -134,7 +134,6 @@ const EBAY = {
     ]
 }
 
-
 const TAKEALOT = {
     blacklistedClasses: [],
     elements: [
@@ -146,5 +145,20 @@ const TAKEALOT = {
     ]
 }
 
+const MEESHO = {
+    blacklistedClasses: ["UKsFl"],
+    elements: [
+        {
+            className: ".NewProductCardstyled__PriceRow-sc-6y2tys-7",
+            getter: ["firstChild", "textContent"],
+            setter: []
+        },
+        {
+            className: ".fka-Dwo",
+            getter: ["textContent"],
+            setter: []
+        }
+    ]
+}
 
 const AFFORDABLE_ID = "#affordable"
