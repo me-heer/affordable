@@ -26,6 +26,11 @@ const AMAZON = {
             className: ".a-size-base-plus",
             getter: ["textContent"],
             setter: []
+        },
+        {
+            className: ".a-price.octopus-widget-price",
+            getter: ["lastChild", "children", "1", "textContent"],
+            setter: ["lastChild"]
         }
     ]
 }

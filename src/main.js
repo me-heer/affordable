@@ -72,7 +72,8 @@ function isValid(productPrice, element, blacklistedClasses, elementInfo) {
 function getElementByKey(element, getterKey) {
     let desiredElement = element;
     for (const key of getterKey) {
-        desiredElement = desiredElement[key.toString()]
+        if (desiredElement)
+            desiredElement = desiredElement[key.toString()]
     }
     return desiredElement;
 }
@@ -81,7 +82,7 @@ function updatePrice(elementInfo, blacklistedClasses) {
     let elements = document.querySelectorAll(elementInfo.className);
     elements.forEach((element) => {
         const elementValue = getElementByKey(element, elementInfo.getter)
-        if (elementValue.includes("to")) {
+        if (elementValue && elementValue.includes("to")) {
             const fromPrice = elementValue.split("to")[0]
             const toPrice = elementValue.split("to")[1]
             parseAndAppend(fromPrice, element, blacklistedClasses, elementInfo, true)
@@ -164,8 +165,10 @@ function addClassBasedOnColourCode(element, colourCodePrices, days) {
 function parseElementValue(elementValue) {
     let parsed = elementValue;
 
-    parsed = elementValue.replace("Rs.", "")
-    parsed = elementValue.replace("US", "")
+    if (elementValue) {
+        parsed = elementValue.replace("Rs.", "")
+        parsed = elementValue.replace("US", "")
+    }
 
     return parsed
 }
