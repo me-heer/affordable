@@ -1,6 +1,8 @@
 
 [![Node.js CI](https://github.com/me-heer/affordable/actions/workflows/node.js.yml/badge.svg)](https://github.com/me-heer/affordable/actions/workflows/node.js.yml)
 
+[![Google Chrome](assets/chrome-web-store.png "Google Chrome")](https://chrome.google.com/webstore/detail/affordable/cpkjnccpkemkddljkidlfplaakmhpfje)
+
 ![affordable-banner](assets/affordable-readme-banner.png)
 
     How long would it take me to earn the amount of money I am spending right now?
