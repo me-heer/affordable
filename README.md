@@ -9,7 +9,7 @@ Affordable updates the prices on e-commerce websites to include how long it will
 
 Improve your spending habits by taking into account the **time it will take you to earn the amount** you are spending currently.
 
-// Add GIF here
+![demo](assets/affordable-demo.gif)
 
 ## Features:
 
