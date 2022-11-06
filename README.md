@@ -29,3 +29,8 @@ Improve your spending habits by taking into account the **time it will take you 
 - Meesho
 - Takealot
 - Your site not listed? let me know here: https://github.com/me-heer/affordable/issues/new
+
+
+## File Structure
+- The Chrome Extension source code resides in [src/](https://github.com/me-heer/affordable/tree/1.0.0/src)
+- To have some basic end-to-end tests using puppeteer, the extension code folder is wrapped inside a npm project (which is present at the root of the repository).
