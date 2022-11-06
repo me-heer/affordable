@@ -1,8 +1,3 @@
-
-[![Node.js CI](https://github.com/me-heer/affordable/actions/workflows/node.js.yml/badge.svg)](https://github.com/me-heer/affordable/actions/workflows/node.js.yml)
-
-[![Google Chrome](assets/chrome-web-store.png "Google Chrome")](https://chrome.google.com/webstore/detail/affordable/cpkjnccpkemkddljkidlfplaakmhpfje)
-
 ![affordable-banner](assets/affordable-readme-banner.png)
 
     How long would it take me to earn the amount of money I am spending right now?
@@ -12,6 +7,8 @@ Affordable updates the prices on e-commerce websites to include how long it will
 Improve your spending habits by taking into account the **time it will take you to earn the amount** you are spending currently.
 
 ![demo](assets/affordable-demo.gif)
+
+[![Google Chrome](assets/chrome-web-store.png "Google Chrome")](https://chrome.google.com/webstore/detail/affordable/cpkjnccpkemkddljkidlfplaakmhpfje)
 
 ## Features:
 
