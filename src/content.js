@@ -1,11 +1,11 @@
 function updateAllPrices() {
     getFromStorageSync("settings", ({ settings }) => {
         if (settings.disabled !== true && !settings.disabledSites.includes(new URL(window.location.toString()).hostname)) {
-            let ecommerce = fetchConfigBasedOnWebsite();
+            let websiteConfig = fetchConfigBasedOnWebsite();
     
-            if (ecommerce) {
-                for (const elementInfo of ecommerce.elements) {
-                    updatePrice(elementInfo, ecommerce.blacklistedClasses)
+            if (websiteConfig) {
+                for (const elementInfo of websiteConfig.elements) {
+                    updatePrice(elementInfo, websiteConfig)
                 }
             }
         }

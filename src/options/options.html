@@ -15,7 +15,8 @@
 </head>
 
 <body>
-    <img src = "../images/affordable.svg" alt="Affordable Icon" style="margin-left: auto; margin-right: auto; display:block; width:30%"/>
+    <img src="../images/affordable.svg" alt="Affordable Icon"
+        style="margin-left: auto; margin-right: auto; display:block; width:30%" />
 
     <div class="d-flex flex-column justify-content-center">
         <div class="row">
@@ -81,12 +82,22 @@
             <div class="col">
                 <div class="form-floating mb-3">
                     <input type="number" class="form-control" id="salary" value="5000">
-                    <label for="salary">🧑‍💻 Your monthly salary/compensation in your currency</label>
+                    <label for="salary">🧑‍💻 Your monthly income in your currency</label>
                     <i class="salary_input" style="font-size: smaller;"></i>
                     <i hidden="hidden" class="salary_input" id="salary_updated_status" style="font-size: smaller;"></i>
                     <p class="salary_input" style="font-size: smaller; opacity: 0.6;">(This data stays in your browser
                         and is only
                         used locally)</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" role="switch" id="percentageModeToggle">
+                    <label class="form-check-label" for="percentageModeToggle">% Percentage mode</label>
+                    <p style="font-size: smaller; display: block; opacity: 0.6;">Show price conversion as percentage of
+                        your income</p>
                 </div>
             </div>
         </div>
@@ -106,45 +117,45 @@
             <div class="col">
                 <div class="form-check form-switch mb-3">
                     <input class="form-check-input btn-danger" type="checkbox" role="switch" id="colourCodeToggle">
-                    <label class="form-check-label" for="colourCodeToggle">🌈 Colour Code Text</label>
+                    <label class="form-check-label" for="colourCodeToggle">🌈 Colourize Amount based on Price</label>
                     <p style="font-size: smaller; display: block; opacity: 0.6;">Show price-conversion text with a
-                        different
-                        colour based on the time it takes to buy</p>
+                        different colour based on how expensive it is compared to your income.
+                        <br> <br>
+                        Cheaper items are shown <b style="color: rgb(0,255,0);">greener</b>, expensive items are shown
+                        <b style="color: rgb(255,0,0);">redder</b>.
+                        <br> <br>
+                        The colour is generated based on the price amount as a percentage of your monthly income.
+                        <br>
+                        e.g.: &nbsp;&nbsp;&nbsp; 
+                        <b style="color: rgb(0,255,0);">3%</b>
+                        &nbsp;&nbsp;&nbsp;
+                        <b style="color: rgb(255,255,0);">56%</b>
+                        &nbsp;&nbsp;&nbsp;<b style="color: rgb(255,0,0);">103%</b>
+                    </p>
 
-                    <ul>
-                        <li>
-                            <span style="color: var(--affordable-highlight-primary);">GREEN</span>
-                            less than 30 days (e.g.:
-                            <span style="color: var(--affordable-highlight-primary)">23 days</span>)
-                            <p style="font-size: smaller; opacity: 0.6; margin-left: 5px;">Products that
-                                cost
-                                less than 30 days of effort can mostly be bought with a conscious thought process and
-                                does not
-                                require much prior planning</p>
-                        </li>
-                        <li>
-                            <span style="color: var(--affordable-highlight-secondary);">YELLOW</span>
-                            1 month to 3 months (e.g.:
-                            <span style="color: var(--affordable-highlight-secondary);">2 months, 8 days</span>)
-                            <p style="font-size: smaller; opacity: 0.6; margin-left: 5px;">Products in
-                                this range
-                                should only be bought with proper planning and we should try to
-                                ensure the product entirely justifies its purpose.</p>
-                        </li>
-
-                        <li>
-                            <span style="color: var(--affordable-highlight-tertiary);">RED</span>
-                            more than 3 months (e.g.:
-                            <span style="color: var(--affordable-highlight-tertiary);">7 months</span>)
-                            <p style="font-size: smaller; opacity: 0.6; margin-left: 5px;">Products that cost more than
-                                3 months of effort
-                                are expensive products that will cost us time and money. We should
-                                very carefully examine our use cases and buying choices before buying.</p>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col">
+                Set a budget
+                <p style="font-size: smaller; display: block; opacity: 0.6;">Hide out of budget prices.
+                <br>
+                (set the textbox to empty to remove budget)
+                </p>
+            </div>
+
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="budget" value="">
+                    <label for="budget">Budget amount</label>
+                    <i hidden="hidden" id="budget_updated_status" style="font-size: smaller;"></i>
+                </div>
+            </div>
+
+        </div>
+
 
         <div class="row">
             <div class="col">
@@ -183,6 +194,7 @@
 
     </div>
     <script src="../main.js"></script>
+    <script src="../settingsPage.js"></script>
     <script src="options.js"></script>
     <script src="../bootstrap/bootstrap.bundle.min.js"></script>
 

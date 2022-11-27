@@ -34,10 +34,10 @@
 ::-moz-selection {
     /* Code for Firefox */
     color: white;
-    background: var(--affordable-secondary);
+    background: var(--affordable-tertiary);
 }
 
 ::selection {
     color: white;
-    background: var(--affordable-secondary);
+    background: var(--affordable-tertiary);
 }

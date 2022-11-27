@@ -6,9 +6,19 @@ function getFromStorageSync(itemName, callback) {
     }
 }
 
-function getAppendContent(productPrice, salary) {
-    let timeTakenToEarn = getTimeTakenToEarn(productPrice, salary)
+function getAppendContent(productPrice, salary, percentageMode) {
+    if (percentageMode) {
+        let percentage = getPriceInSalaryPercentage(productPrice, salary);
+        return `${brackets.left}${percentage}%${brackets.right}`
+    }
+    let timeTakenToEarn = getTimeTakenToEarn(productPrice, salary);
     return ` ${brackets.left}${timeTakenToEarn}${brackets.right}`
+}
+
+function getPriceInSalaryPercentage(productPrice, salary) {
+    let percentage = (productPrice / salary) * 100;
+    percentage = Math.round(percentage * 100) / 100;
+    return percentage;
 }
 
 function getTimeTakenToEarn(productPrice, monthlySalary) {
@@ -65,10 +75,19 @@ function containsBlacklistedClasses(element, blacklistedClasses) {
     return false;
 }
 
+function containsBlacklistedAttributes(element, blacklistedAttributes) {
+    if (blacklistedAttributes) {
+        for (let blacklistedAttribute of blacklistedAttributes) {
+            if (element.attributes.getNamedItem(blacklistedAttribute)) return true;
+        }
+    }
+    return false;
+}
 
-function isValid(productPrice, element, blacklistedClasses, elementInfo) {
+function isValid(productPrice, element, websiteConfig, elementInfo) {
     return !isNaN(productPrice) && productPrice !== 0
-        && !containsBlacklistedClasses(element, blacklistedClasses)
+        && !containsBlacklistedClasses(element, websiteConfig.blacklistedClasses)
+        && !containsBlacklistedAttributes(element, websiteConfig.blacklistedAttributes)
         && !isAlreadyAppended(element, elementInfo)
         && !isASentence(element, elementInfo);
 }
@@ -82,24 +101,24 @@ function getElementByKey(element, getterKey) {
     return desiredElement;
 }
 
-function updatePrice(elementInfo, blacklistedClasses) {
+function updatePrice(elementInfo, websiteConfig) {
     let elements = document.querySelectorAll(elementInfo.className);
     elements.forEach((element) => {
         const elementValue = getElementByKey(element, elementInfo.getter)
         if (elementValue && elementValue.includes("to")) {
             const fromPrice = elementValue.split("to")[0]
             const toPrice = elementValue.split("to")[1]
-            parseAndAppend(fromPrice, element, blacklistedClasses, elementInfo, true)
-            parseAndAppend(toPrice, element, blacklistedClasses, elementInfo, true)
+            parseAndAppend(fromPrice, element, websiteConfig, elementInfo, true)
+            parseAndAppend(toPrice, element, websiteConfig, elementInfo, true)
         }
-        parseAndAppend(elementValue, element, blacklistedClasses, elementInfo, false);
+        parseAndAppend(elementValue, element, websiteConfig, elementInfo, false);
     });
 }
 
-function parseAndAppend(elementValue, element, blacklistedClasses, elementInfo, isPriceRange) {
+function parseAndAppend(elementValue, element, websiteConfig, elementInfo, isPriceRange) {
     const parsedPrice = parseElementValue(elementValue);
     let productPrice = currency(parsedPrice).value;
-    if (isValid(productPrice, element, blacklistedClasses, elementInfo)) {
+    if (isValid(productPrice, element, websiteConfig, elementInfo)) {
         getFromStorageSync("settings", ({ settings }) => {
             append(elementInfo, element, productPrice, settings, isPriceRange);
         });
@@ -107,16 +126,60 @@ function parseAndAppend(elementValue, element, blacklistedClasses, elementInfo, 
 }
 
 function append(elementInfo, element, productPrice, settings, isPriceRange) {
+    if (settings.budget && productPrice > settings.budget) {
+        let priceElement = getElementByKey(element, elementInfo.setter)
+
+        for (let i = 0; i < priceElement.children.length; i++) {
+            child = priceElement.children[i]
+            if (child.getAttribute('id') === 'affordable-budget') {
+                return;
+            }
+        }
+        let earlierPrice = priceElement.textContent;
+        priceElement.textContent = "Out of budget"
+
+        let span = document.createElement("span");
+        span.style.display = 'none'
+        span.setAttribute('id', 'affordable-budget');
+        span.classList.add('budget-price');
+        span.innerText = earlierPrice;
+        priceElement.appendChild(span);
+
+        priceElement.classList.add("budget-mode");
+        priceElement.addEventListener('mouseover', function handleMouseOver() {
+            span.style.display = 'block';
+
+        });
+        priceElement.addEventListener('mouseout', function handleMouseOut() {
+            span.style.display = 'none';
+        });
+        return;
+    }
+
     let desiredElement = getElementByKey(element, elementInfo.setter);
+
+    if (desiredElement.classList.contains("budget-mode") && !settings.budget) {
+        let earlierPrice;
+        for (let i = 0; i < desiredElement.children.length; i++) {
+            child = priceElement.children[i]
+            if (child.getAttribute('id') === 'affordable-budget') {
+                earlierPrice = child.textContent;
+                desiredElement.textContent = earlierPrice;
+            }
+        }
+        return;
+    }
+
     let span = document.createElement("span");
     span.setAttribute('id', 'affordable');
     desiredElement.appendChild(span);
-
     if (settings.hoverMode) {
         // Hover Mode Attributes
-        span.setAttribute('style', 'display:none');
-        span.innerText = " " + brackets.left + getTimeTakenToEarn(productPrice, settings.salary) + brackets.right;
-        element.classList.add("hover-mode");
+        span.style.display = 'none'
+        if (settings.colourCodePrices) {
+            addColourBasedOnPercentIntensity(span, getPriceInSalaryPercentage(productPrice, settings.salary) / 100)
+        }
+        span.innerText = " " + getAppendContent(productPrice, settings.salary, settings.percentageMode)
         element.addEventListener('mouseover', function handleMouseOver() {
             span.style.display = 'block';
 
@@ -129,9 +192,9 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
         // Normal Mode Attributes
         let innerSpan = document.createElement("span")
         if (settings.colourCodePrices) {
-            addFontDetailsBasedOnColourCode(innerSpan, true, getDays(productPrice, settings.salary))
+            addColourBasedOnPercentIntensity(innerSpan, getPriceInSalaryPercentage(productPrice, settings.salary) / 100)
         }
-        innerSpan.innerText = getAppendContent(productPrice, settings.salary);
+        innerSpan.innerText = getAppendContent(productPrice, settings.salary, settings.percentageMode);
         span.appendChild(innerSpan)
         if (!isPriceRange) {
             span.setAttribute("style", "display:block");
@@ -143,14 +206,23 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
 function addFontDetailsBasedOnColourCode(element, colourCodePrices, days) {
     let defaultStyleAttributes = ''
     if (colourCodePrices) {
-        if (days <= 30)
+        if (days <= 15)
             defaultStyleAttributes += 'color: var(--affordable-highlight-primary)'
-        else if (days > 30 && days <= 90)
+        else if (days > 15 && days <= 30)
             defaultStyleAttributes += 'color: var(--affordable-highlight-secondary)'
         else
             defaultStyleAttributes += 'color: var(--affordable-highlight-tertiary)'
     }
     element.setAttribute('style', defaultStyleAttributes)
+}
+
+function addColourBasedOnPercentIntensity(element, percent) {
+    //value from 0 to 1
+    if (percent > 1)
+        percent = 1;
+    var hue = ((1 - percent) * 120).toString(10);
+    let backgroundColor = ["hsl(", hue, ",100%,50%)"].join("");
+    element.style.color = backgroundColor;
 }
 
 function addClassBasedOnColourCode(element, colourCodePrices, days) {
@@ -205,10 +277,11 @@ function undoUpdates() {
         let tempParentElement = element.parentElement;
         tempParentElement.removeChild(element);
     })
-    elements = document.querySelectorAll(".hover-mode")
-    elements.forEach((element) => {
-        element.classList.remove("hover-mode")
-    })
+    // let budgetElements = document.querySelectorAll('#affordable-budget');
+    // budgetElements.forEach((element) => {
+    //     let tempParentElement = element.parentElement;
+    //     tempParentElement.removeChild(element);
+    // })
 
     elements = document.querySelectorAll(".affordable-highlight-primary")
     elements.forEach((element) => {

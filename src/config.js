@@ -11,6 +11,7 @@ Configurations for different ecommerce websites.
  */
 const AMAZON = {
     blacklistedClasses: ["a-row", "savingsPercentage"],
+    blacklistedAttributes: ['data-a-strike'],
     elements: [
         {
             className: ".a-price",

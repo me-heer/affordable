@@ -3,6 +3,8 @@ let defaultSettings = {
     hoverMode: false,
     disabledSites: [],
     colourCodePrices: true,
+    percentageMode: false,
+    budget: ""
 }
 
 chrome.runtime.onInstalled.addListener(setConfigs);
