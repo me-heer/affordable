@@ -1,7 +1,7 @@
 {
   "name": "Affordable",
   "description": "How long would it take me to earn the amount of money I am spending right now?",
-  "version": "1.0",
+  "version": "1.1",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
