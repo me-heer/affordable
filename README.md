@@ -12,12 +12,14 @@ Improve your spending habits by taking into account the **time it will take you 
 
 ## Features:
 
+**% Percentage mode:** Show price conversion as percentage of your income
+
+**✋ Set a budget:** Out of budget product prices are hidden to prevent impulsive purchases.
+
 **🖱️ Hover Mode:** Too intrusive? only show the price conversion when you hover the product price with the cursor
 
-**🌈 Colour Code Prices:** The more expensive the item compared to your salary, the redder it will be highlighted,
-- GREEN: easily purchasable
-- YELLOW: requires conscious thought before purchase
-- RED: requires careful financial planning before purchase
+**🌈 Colour Code Prices:** Affordable items are greener. Expensive items are redder.
+
 
 ### Supported Websites
 - Amazon
