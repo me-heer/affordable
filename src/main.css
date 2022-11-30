@@ -30,14 +30,3 @@
     background-repeat: no-repeat !important;
     background-size: 100% 8% !important;
 }
-
-::-moz-selection {
-    /* Code for Firefox */
-    color: white;
-    background: var(--affordable-tertiary);
-}
-
-::selection {
-    color: white;
-    background: var(--affordable-tertiary);
-}
