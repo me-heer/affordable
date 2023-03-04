@@ -82,12 +82,25 @@
             <div class="col">
                 <div class="form-floating mb-3">
                     <input type="number" class="form-control" id="salary" value="5000">
-                    <label for="salary">🧑‍💻 Your monthly income in your currency</label>
+                    <label for="salary">🧑‍💻 How much are you willing to spend each month?</label>
                     <i class="salary_input" style="font-size: smaller;"></i>
                     <i hidden="hidden" class="salary_input" id="salary_updated_status" style="font-size: smaller;"></i>
-                    <p class="salary_input" style="font-size: smaller; opacity: 0.6;">(This data stays in your browser
-                        and is only
-                        used locally)</p>
+                    <p style="font-size: smaller; opacity: 0.6;">
+                        Note: This number is assumed to be in your region's currency. 
+                        <br> Ideally, this will be your monthly salary.
+                        <br> Everything stays in your browser and is only used locally.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" role="switch" id="strictPriceModeToggle">
+                    <label class="form-check-label" for="strictPriceModeToggle">💯 Reduce Price Charming</label>
+                    <p style="font-size: smaller; display: block; opacity: 0.6;">e.g.: 69,990 is shown as -> <b>70,000~</b>
+                        <br> See <a id="link" href="https://en.wikipedia.org/wiki/Psychological_pricing" target="_blank">Psychological Pricing (Price Charming) of products</a>.
+                        <br> Actual price can be viewed by hovering the cursor on the adjusted price.
+                    </p>
                 </div>
             </div>
         </div>

@@ -5,5 +5,6 @@ addDisableForThisSiteUpdateListener();
 addDisableExtensionListener();
 addColourCodePriceListener();
 addPercentageModeListener();
+addStrictPriceModeListener();
 addResultUpdateListener();
 addBudgetUpdateListener();

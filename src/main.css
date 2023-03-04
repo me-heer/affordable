@@ -30,3 +30,11 @@
     background-repeat: no-repeat !important;
     background-size: 100% 8% !important;
 }
+
+#link {
+    color: var(--affordable-primary);
+}
+
+#link:hover {
+    color: white;
+}

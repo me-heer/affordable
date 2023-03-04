@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/me-heer/affordable#readme",
   "dependencies": {
+    "chrome-types": "^0.1.175",
     "mocha": "^10.0.0",
     "puppeteer": "^18.0.5",
     "uuid": "^9.0.0"

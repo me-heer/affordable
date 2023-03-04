@@ -1,3 +1,11 @@
 .vscode/launch.json
 node_modules/*
 test_report/*
+src/.idea/modules.xml
+src/.idea/src.iml
+src/.idea/vcs.xml
+.idea/affordable.iml
+.idea/modules.xml
+.idea/.gitignore
+.idea/vcs.xml
+src/.idea/.gitignore

@@ -5,5 +5,6 @@ addHoverModeUpdateListener();
 addDisableExtensionListener();
 addColourCodePriceListener();
 addPercentageModeListener();
+addStrictPriceModeListener();
 addResultUpdateListener();
 addBudgetUpdateListener();

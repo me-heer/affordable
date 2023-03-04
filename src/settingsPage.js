@@ -40,6 +40,12 @@ function populateDefaultValues(optionsPage) {
             percentageModeToggle.setAttribute('checked', 'checked')
         }
 
+        const strictPriceMode = settings.strictPriceMode;
+        let strictPriceModeToggle = document.getElementById('strictPriceModeToggle')
+        if (strictPriceMode === true) {
+            strictPriceModeToggle.setAttribute('checked', 'checked')
+        }
+
         const budget = settings.budget;
         let budgetElement = document.getElementById('budget')
         budgetElement.setAttribute('value', budget)
@@ -72,7 +78,7 @@ function updateSalary() {
 
         let salaryUpdatedStatusText = document.getElementById('salary_updated_status')
         salaryUpdatedStatusText.hidden = false;
-        salaryUpdatedStatusText.textContent = `Updated salary: ${salaryValue}`
+        salaryUpdatedStatusText.textContent = `Updated monthly spend: ${salaryValue} (in your currency)`
         sendMessage();
     }
 }
@@ -103,11 +109,12 @@ function updateBudget() {
         let budgetUpdatedStatusText = document.getElementById('budget_updated_status')
         budgetUpdatedStatusText.hidden = false;
         if (budgetValue === "") {
-            budgetUpdatedStatusText.textContent = `Successfully removed budget. Please refresh the page.`
+            budgetUpdatedStatusText.textContent = `Successfully removed budget. The page should refresh.`
         } else {
-            budgetUpdatedStatusText.textContent = `Updated budget: ${budgetValue}.`
+            budgetUpdatedStatusText.textContent = `Updated budget: ${budgetValue}. The page should refresh.`
         }
         sendMessage();
+        chrome.tabs.reload();
     }
 }
 
@@ -178,6 +185,22 @@ function addColourCodePriceListener() {
 
         chrome.storage.sync.get("settings", ({ settings }) => {
             settings.colourCodePrices = colourCodeToggle.checked
+        })
+        sendMessage()
+    });
+}
+
+
+function addStrictPriceModeListener() {
+    let strictPriceModeToggle = document.getElementById('strictPriceModeToggle');
+    strictPriceModeToggle.addEventListener('change', () => {
+
+        chrome.storage.sync.get("settings", ({ settings }) => {
+            const previousSetting = settings.strictPriceMode;
+            settings.strictPriceMode = strictPriceModeToggle.checked
+            chrome.storage.sync.set({ settings });
+            if (strictPriceModeToggle.checked !== previousSetting)
+                chrome.tabs.reload();
         })
         sendMessage()
     });

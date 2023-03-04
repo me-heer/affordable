@@ -33,7 +33,7 @@ function getTimeTakenToEarn(productPrice, monthlySalary) {
         else
             months = months + " months"
         let days = (timeTakenToEarn % 30)
-        if (days == 0)
+        if (days === 0)
             return months
         else if (days === 1)
             days = days + " day"
@@ -43,10 +43,6 @@ function getTimeTakenToEarn(productPrice, monthlySalary) {
     }
 
     return timeTakenToEarn + " days";
-}
-
-function getDays(productPrice, monthlySalary) {
-    return parseInt(productPrice * (30 / monthlySalary));
 }
 
 function isAlreadyAppended(element, elementInfo) {
@@ -125,43 +121,151 @@ function parseAndAppend(elementValue, element, websiteConfig, elementInfo, isPri
     }
 }
 
-function append(elementInfo, element, productPrice, settings, isPriceRange) {
-    if (settings.budget && productPrice > settings.budget) {
-        let priceElement = getElementByKey(element, elementInfo.setter)
+function getStricterPrice(earlierPrice) {
+    let tens = 10;
+    let length = 0;
+    if (earlierPrice.toString().includes("."))
+        length = (earlierPrice + '').replace('.', '').length;  // for floats
+    else
+        length = Math.log(earlierPrice) * Math.LOG10E + 1 | 0;  // for positive integers
 
+    for (let i = 0; i < length; i++) {
+        let nearestMultipleOfTens = Math.ceil(earlierPrice / tens) * tens;
+        let diff = nearestMultipleOfTens - earlierPrice
+        let diffInPercent = (diff * 100) / earlierPrice;
+        if (diffInPercent > 0 && diffInPercent < 1.00)
+            return earlierPrice + diff;
+        tens = tens * 10;
+    }
+
+    return earlierPrice;
+}
+
+function getNearestMultipleOf100(num) {
+    let nearestMultiple = Math.ceil(num / 100) * 100; // get the nearest multiple of 100
+    return nearestMultiple - num;
+}
+
+function getNearestMultipleOf10(num) {
+    let nearestMultiple = Math.ceil(num / 10) * 10; // get the nearest multiple of 10
+    return nearestMultiple - num;
+}
+
+
+function createHiddenEarlierPriceElement(earlierPrice, priceElement) {
+    let span = document.createElement("span");
+    span.style.display = 'none'
+    span.setAttribute('id', 'affordable-budget');
+    span.classList.add('budget-price');
+    span.innerText = earlierPrice;
+    priceElement.appendChild(span);
+
+    priceElement.addEventListener('mouseover', function handleMouseOver() {
+        span.style.display = 'block';
+
+    });
+    priceElement.addEventListener('mouseout', function handleMouseOut() {
+        span.style.display = 'none';
+    });
+}
+
+function addZerosToNumber(actualPrice, strictlyAdjustedPrice) {
+    let decimalPlacesA = actualPrice.toString().split('.')[1];
+    let decimalPlacesB = strictlyAdjustedPrice.toString().split('.')[1];
+
+    if (decimalPlacesA && !decimalPlacesB) {
+        let numZeros = decimalPlacesA.length;
+        let zerosToAdd = '0'.repeat(numZeros);
+        strictlyAdjustedPrice = strictlyAdjustedPrice.toString() + '.' + zerosToAdd;
+    } else if (decimalPlacesA && decimalPlacesB && decimalPlacesA.length > decimalPlacesB.length) {
+        let numZeros = decimalPlacesA.length - decimalPlacesB.length;
+        let zerosToAdd = '0'.repeat(numZeros);
+        strictlyAdjustedPrice = strictlyAdjustedPrice.toString() + zerosToAdd;
+    }
+    return strictlyAdjustedPrice;
+}
+
+
+function replaceDigitsFromRight(actualPrice, strictlyAdjustedPrice) {
+    const aArray = actualPrice.replace(/,/g, '').split('');
+    const bArray = strictlyAdjustedPrice.split('');
+
+    // Remove currency symbol from aArray
+    const currencyIndex = aArray.findIndex((char) => isNaN(parseInt(char, 10)));
+    const aDigits = aArray.slice(currencyIndex + 1);
+
+    // Iterate through A from right to left
+    for (let i = aDigits.length - 1, j = bArray.length - 1; i >= 0; i--, j--) {
+        if (!isNaN(parseInt(aDigits[i], 10))) {
+            if (j >= 0) {
+                aDigits[i] = bArray[j];
+            } else {
+                aDigits[i] = '0';
+            }
+        }
+    }
+
+    // Add any extra digits from B to the left of aDigits
+    const extraDigits = bArray.slice(0, bArray.length - aDigits.length);
+    const resultDigits = [...extraDigits, ...aDigits];
+
+    // Add commas back to resultDigits
+    const resultDigitsString = resultDigits.join('').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    // Add currency symbol back to result
+    const result = actualPrice.slice(0, currencyIndex + 1) + resultDigitsString;
+
+    // Handle decimal points
+    const aDecimalIndex = actualPrice.indexOf('.');
+    const bDecimalIndex = strictlyAdjustedPrice.indexOf('.');
+    if (aDecimalIndex !== -1 && bDecimalIndex === aDecimalIndex) {
+        const resultDecimalIndex = result.indexOf('.');
+        if (resultDecimalIndex === -1) {
+            return result + '.';
+        } else if (resultDecimalIndex === result.length - 1) {
+            return result + '0';
+        }
+    }
+
+    return result;
+}
+
+function append(elementInfo, element, productPrice, settings, isPriceRange) {
+    let priceElement = getElementByKey(element, elementInfo.setter)
+
+    if (settings.strictPriceMode) {
+        let stricterPrice = getStricterPrice(productPrice);
+        if (stricterPrice !== productPrice && priceElement.getAttribute('id') !== "strict-mode") {
+            stricterPrice = addZerosToNumber(priceElement.textContent, stricterPrice)
+            let earlierPrice = priceElement.textContent;
+            priceElement.textContent = replaceDigitsFromRight(earlierPrice, stricterPrice.toString()) + "~"
+            priceElement.setAttribute('id', 'strict-mode');
+            createHiddenEarlierPriceElement(earlierPrice, priceElement);
+        }
+    }
+
+    if (settings.budget && productPrice > settings.budget) {
+        // Show price as 'Out of Budget', reveal price on hover
         for (let i = 0; i < priceElement.children.length; i++) {
-            child = priceElement.children[i]
+            let child = priceElement.children[i]
             if (child.getAttribute('id') === 'affordable-budget') {
                 return;
             }
         }
         let earlierPrice = priceElement.textContent;
         priceElement.textContent = "Out of budget"
-
-        let span = document.createElement("span");
-        span.style.display = 'none'
-        span.setAttribute('id', 'affordable-budget');
-        span.classList.add('budget-price');
-        span.innerText = earlierPrice;
-        priceElement.appendChild(span);
-
         priceElement.classList.add("budget-mode");
-        priceElement.addEventListener('mouseover', function handleMouseOver() {
-            span.style.display = 'block';
-
-        });
-        priceElement.addEventListener('mouseout', function handleMouseOut() {
-            span.style.display = 'none';
-        });
+        createHiddenEarlierPriceElement(earlierPrice, priceElement);
         return;
     }
 
     let desiredElement = getElementByKey(element, elementInfo.setter);
 
     if (desiredElement.classList.contains("budget-mode") && !settings.budget) {
+        // Budget-mode was reset, revert to original prices
         let earlierPrice;
         for (let i = 0; i < desiredElement.children.length; i++) {
-            child = priceElement.children[i]
+            let child = priceElement.children[i]
             if (child.getAttribute('id') === 'affordable-budget') {
                 earlierPrice = child.textContent;
                 desiredElement.textContent = earlierPrice;
@@ -182,8 +286,8 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
         span.innerText = " " + getAppendContent(productPrice, settings.salary, settings.percentageMode)
         element.addEventListener('mouseover', function handleMouseOver() {
             span.style.display = 'block';
-
         });
+        desiredElement.setAttribute("title", `It will take you ${getTimeTakenToEarn(productPrice, settings.salary)} to earn ${productPrice}`);
         element.addEventListener('mouseout', function handleMouseOut() {
             span.style.display = 'none';
         });
@@ -203,19 +307,6 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
     }
 }
 
-function addFontDetailsBasedOnColourCode(element, colourCodePrices, days) {
-    let defaultStyleAttributes = ''
-    if (colourCodePrices) {
-        if (days <= 15)
-            defaultStyleAttributes += 'color: var(--affordable-highlight-primary)'
-        else if (days > 15 && days <= 30)
-            defaultStyleAttributes += 'color: var(--affordable-highlight-secondary)'
-        else
-            defaultStyleAttributes += 'color: var(--affordable-highlight-tertiary)'
-    }
-    element.setAttribute('style', defaultStyleAttributes)
-}
-
 function addColourBasedOnPercentIntensity(element, percent) {
     //value from 0 to 1
     if (percent > 1)
@@ -223,19 +314,6 @@ function addColourBasedOnPercentIntensity(element, percent) {
     var hue = ((1 - percent) * 120).toString(10);
     let backgroundColor = ["hsl(", hue, ",100%,50%)"].join("");
     element.style.color = backgroundColor;
-}
-
-function addClassBasedOnColourCode(element, colourCodePrices, days) {
-    if (colourCodePrices) {
-        if (days <= 30)
-            element.classList.add("affordable-highlight-primary")
-        else if (days > 30 && days <= 180)
-            element.classList.add("affordable-highlight-secondary")
-        else
-            element.classList.add("affordable-highlight-tertiary")
-    } else {
-        element.classList.add("affordable-highlight-primary")
-    }
 }
 
 function parseElementValue(elementValue) {
