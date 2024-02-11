@@ -6,6 +6,8 @@ Affordable updates the prices on e-commerce websites to include how long it will
 
 Improve your spending habits by taking into account the **time it will take you to earn the amount** you are spending currently.
 
+Video explaining this: https://www.youtube.com/watch?v=sQsiy999ENc
+
 ![demo](assets/affordable-demo.gif)
 
 [![Google Chrome](assets/chrome-web-store.png "Google Chrome")](https://chrome.google.com/webstore/detail/affordable/cpkjnccpkemkddljkidlfplaakmhpfje)
