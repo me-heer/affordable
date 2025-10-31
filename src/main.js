@@ -274,6 +274,39 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
         return;
     }
 
+    // Remove any existing affordable badges from this element to prevent duplicates
+    let existingBadges = desiredElement.querySelectorAll('#affordable');
+    existingBadges.forEach(badge => badge.remove());
+    
+    // Also check parent element for adjacent sibling badges (in case badges were added to adjacent elements)
+    if (desiredElement.parentElement) {
+        let siblings = Array.from(desiredElement.parentElement.children);
+        let desiredIndex = siblings.indexOf(desiredElement);
+        
+        // Check adjacent siblings (previous and next)
+        if (desiredIndex > 0) {
+            let prevSibling = siblings[desiredIndex - 1];
+            let prevBadges = prevSibling.querySelectorAll('#affordable');
+            prevBadges.forEach(badge => {
+                // Only remove if it's a direct child (adjacent span tag)
+                if (badge.parentElement === prevSibling) {
+                    badge.remove();
+                }
+            });
+        }
+        
+        if (desiredIndex < siblings.length - 1) {
+            let nextSibling = siblings[desiredIndex + 1];
+            let nextBadges = nextSibling.querySelectorAll('#affordable');
+            nextBadges.forEach(badge => {
+                // Only remove if it's a direct child (adjacent span tag)
+                if (badge.parentElement === nextSibling) {
+                    badge.remove();
+                }
+            });
+        }
+    }
+
     // Build badge
     let badge = document.createElement("span");
     badge.setAttribute('id', 'affordable');
