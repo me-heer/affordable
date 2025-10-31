@@ -38,3 +38,58 @@
 #link:hover {
     color: white;
 }
+
+/* Affordable inline badge */
+.affordable-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 2px 8px !important;
+    margin-left: 6px !important;
+    border-radius: 999px !important;
+    font-size: 0.9em !important;
+    line-height: 1 !important;
+    background-color: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.affordable-badge__swatch {
+    width: 6px !important;
+    height: 0.9em !important;
+    border-radius: 2px !important;
+    flex: 0 0 6px !important;
+    background-color: #4caf50 !important; /* default */
+}
+
+.affordable-badge__text {
+    color: #111111 !important;
+    font-weight: 600 !important;
+    font-variant-numeric: tabular-nums !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif !important;
+    white-space: nowrap !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .affordable-badge {
+        background-color: #121212 !important;
+        border: 1px solid rgba(255, 255, 255, 0.24) !important;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4) !important;
+    }
+    .affordable-badge__text { color: #ffffff !important; }
+}
+
+/* Discrete affordability tiers (0=most affordable green → 10=least affordable red) */
+.aff-tier-0 { background-color: #2e7d32 !important; }
+.aff-tier-1 { background-color: #388e3c !important; }
+.aff-tier-2 { background-color: #43a047 !important; }
+.aff-tier-3 { background-color: #4caf50 !important; }
+.aff-tier-4 { background-color: #7cb342 !important; }
+.aff-tier-5 { background-color: #fbc02d !important; }
+.aff-tier-6 { background-color: #f57c00 !important; }
+.aff-tier-7 { background-color: #ef6c00 !important; }
+.aff-tier-8 { background-color: #e53935 !important; }
+.aff-tier-9 { background-color: #d32f2f !important; }
+.aff-tier-10 { background-color: #b71c1c !important; }

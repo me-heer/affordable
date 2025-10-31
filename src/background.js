@@ -7,14 +7,14 @@ let defaultSettings = {
     budget: ""
 }
 
-chrome.runtime.onInstalled.addListener(setConfigs);
-
-function setConfigs() {
+chrome.runtime.onInstalled.addListener((details) => {
     chrome.storage.sync.get("settings", ({ settings }) => {
         if (!settings) {
             chrome.storage.sync.set({ settings: defaultSettings });
         }
     });
 
-    chrome.runtime.openOptionsPage();
-}
+    if (details && details.reason === 'install') {
+        chrome.runtime.openOptionsPage();
+    }
+});

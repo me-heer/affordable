@@ -9,10 +9,10 @@ function getFromStorageSync(itemName, callback) {
 function getAppendContent(productPrice, salary, percentageMode) {
     if (percentageMode) {
         let percentage = getPriceInSalaryPercentage(productPrice, salary);
-        return `${brackets.left}${percentage}%${brackets.right}`
+        return `${percentage}%`
     }
     let timeTakenToEarn = getTimeTakenToEarn(productPrice, salary);
-    return ` ${brackets.left}${timeTakenToEarn}${brackets.right}`
+    return `${timeTakenToEarn}`
 }
 
 function getPriceInSalaryPercentage(productPrice, salary) {
@@ -274,46 +274,56 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
         return;
     }
 
-    let span = document.createElement("span");
-    span.setAttribute('id', 'affordable');
-    desiredElement.appendChild(span);
+    // Build badge
+    let badge = document.createElement("span");
+    badge.setAttribute('id', 'affordable');
+    badge.className = 'affordable-badge';
+
+    let swatch = document.createElement("span");
+    swatch.className = 'affordable-badge__swatch';
+
+    if (settings.colourCodePrices) {
+        const percent = computeAffordabilityPercent(productPrice, settings.salary);
+        const tier = percentToTier(percent);
+        swatch.classList.add(`aff-tier-${tier}`);
+    }
+
+    let text = document.createElement("span");
+    text.className = 'affordable-badge__text';
+    text.innerText = getAppendContent(productPrice, settings.salary, settings.percentageMode);
+
+    badge.appendChild(swatch);
+    badge.appendChild(text);
+    desiredElement.appendChild(badge);
+
     if (settings.hoverMode) {
         // Hover Mode Attributes
-        span.style.display = 'none'
-        if (settings.colourCodePrices) {
-            addColourBasedOnPercentIntensity(span, getPriceInSalaryPercentage(productPrice, settings.salary) / 100)
-        }
-        span.innerText = " " + getAppendContent(productPrice, settings.salary, settings.percentageMode)
+        badge.style.display = 'none';
         element.addEventListener('mouseover', function handleMouseOver() {
-            span.style.display = 'block';
+            badge.style.display = 'inline-flex';
         });
         desiredElement.setAttribute("title", `It will take you ${getTimeTakenToEarn(productPrice, settings.salary)} to earn ${productPrice}`);
         element.addEventListener('mouseout', function handleMouseOut() {
-            span.style.display = 'none';
+            badge.style.display = 'none';
         });
-
-    } else {
-        // Normal Mode Attributes
-        let innerSpan = document.createElement("span")
-        if (settings.colourCodePrices) {
-            addColourBasedOnPercentIntensity(innerSpan, getPriceInSalaryPercentage(productPrice, settings.salary) / 100)
-        }
-        innerSpan.innerText = getAppendContent(productPrice, settings.salary, settings.percentageMode);
-        span.appendChild(innerSpan)
-        if (!isPriceRange) {
-            span.setAttribute("style", "display:block");
-            desiredElement.setAttribute("title", `It will take you ${getTimeTakenToEarn(productPrice, settings.salary)} to earn ${productPrice}`);
-        }
+    } else if (!isPriceRange) {
+        badge.setAttribute("style", "display:inline-flex");
+        desiredElement.setAttribute("title", `It will take you ${getTimeTakenToEarn(productPrice, settings.salary)} to earn ${productPrice}`);
     }
 }
 
-function addColourBasedOnPercentIntensity(element, percent) {
-    //value from 0 to 1
-    if (percent > 1)
-        percent = 1;
-    var hue = ((1 - percent) * 120).toString(10);
-    let backgroundColor = ["hsl(", hue, ",100%,50%)"].join("");
-    element.style.color = backgroundColor;
+function computeAffordabilityPercent(productPrice, salary) {
+    let percent = productPrice / salary;
+    if (percent < 0) percent = 0;
+    if (percent > 1) percent = 1;
+    return percent;
+}
+
+function percentToTier(percent) {
+    let p = percent;
+    if (p < 0) p = 0;
+    if (p > 1) p = 1;
+    return Math.round(p * 10);
 }
 
 function parseElementValue(elementValue) {
