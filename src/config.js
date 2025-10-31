@@ -32,6 +32,11 @@ const AMAZON = {
             className: ".a-price.octopus-widget-price",
             getter: ["lastChild", "children", "1", "textContent"],
             setter: ["lastChild"]
+        },
+        {
+            className: ".reinventPricePriceToPayMargin",
+            getter: ["lastChild", "children", "1", "textContent"],
+            setter: ["lastChild"]
         }
     ]
 }
