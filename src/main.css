@@ -93,3 +93,80 @@
 .aff-tier-8 { background-color: #e53935 !important; }
 .aff-tier-9 { background-color: #d32f2f !important; }
 .aff-tier-10 { background-color: #b71c1c !important; }
+
+/* Strict Price Mode Styles */
+#strict-mode,
+.budget-mode {
+    position: relative !important;
+}
+
+#strict-mode::after {
+    content: '' !important;
+    display: inline-block !important;
+    margin-left: 2px !important;
+    font-size: 0.85em !important;
+    opacity: 0.7 !important;
+    vertical-align: baseline !important;
+    transition: opacity 0.2s ease !important;
+}
+
+#strict-mode:hover::after {
+    opacity: 1 !important;
+}
+
+.budget-price {
+    position: absolute !important;
+    bottom: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    padding: 6px 10px !important;
+    border-radius: 6px !important;
+    font-size: 0.85em !important;
+    white-space: nowrap !important;
+    pointer-events: none !important;
+    z-index: 10000 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s ease !important;
+    transform: translateX(-50%) translateY(-4px) !important;
+    margin-bottom: 8px !important;
+    font-weight: 500 !important;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif !important;
+}
+
+.budget-price::before {
+    content: 'Original: ' !important;
+    opacity: 0.7 !important;
+    margin-right: 4px !important;
+}
+
+.budget-price::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    border: 5px solid transparent !important;
+    border-top-color: #1a1a1a !important;
+}
+
+#strict-mode:hover .budget-price,
+.budget-mode:hover .budget-price {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateX(-50%) translateY(0) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .budget-price {
+        background-color: #2a2a2a !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+    }
+    
+    .budget-price::after {
+        border-top-color: #2a2a2a !important;
+    }
+}

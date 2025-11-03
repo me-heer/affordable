@@ -28,12 +28,6 @@ function populateDefaultValues(optionsPage) {
             disableExtensionToggle.setAttribute('checked', 'checked')
         }
 
-        const colourCodePrices = settings.colourCodePrices;
-        let colourCodeToggle = document.getElementById('colourCodeToggle')
-        if (colourCodePrices === true) {
-            colourCodeToggle.setAttribute('checked', 'checked')
-        }
-
         const percentageMode = settings.percentageMode;
         let percentageModeToggle = document.getElementById('percentageModeToggle')
         if (percentageMode === true) {
@@ -42,7 +36,7 @@ function populateDefaultValues(optionsPage) {
 
         const strictPriceMode = settings.strictPriceMode;
         let strictPriceModeToggle = document.getElementById('strictPriceModeToggle')
-        if (strictPriceMode === true) {
+        if (strictPriceModeToggle && strictPriceMode === true) {
             strictPriceModeToggle.setAttribute('checked', 'checked')
         }
 
@@ -178,18 +172,6 @@ function addDisableExtensionListener() {
         sendMessage()
     });
 }
-
-function addColourCodePriceListener() {
-    let colourCodeToggle = document.getElementById('colourCodeToggle');
-    colourCodeToggle.addEventListener('change', () => {
-
-        chrome.storage.sync.get("settings", ({ settings }) => {
-            settings.colourCodePrices = colourCodeToggle.checked
-        })
-        sendMessage()
-    });
-}
-
 
 function addStrictPriceModeListener() {
     let strictPriceModeToggle = document.getElementById('strictPriceModeToggle');

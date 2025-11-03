@@ -153,20 +153,18 @@ function getNearestMultipleOf10(num) {
 
 
 function createHiddenEarlierPriceElement(earlierPrice, priceElement) {
+    // Remove any existing budget-price element to avoid duplicates
+    let existingBudgetPrice = priceElement.querySelector('.budget-price');
+    if (existingBudgetPrice) {
+        existingBudgetPrice.remove();
+    }
+
     let span = document.createElement("span");
-    span.style.display = 'none'
     span.setAttribute('id', 'affordable-budget');
     span.classList.add('budget-price');
     span.innerText = earlierPrice;
     priceElement.appendChild(span);
-
-    priceElement.addEventListener('mouseover', function handleMouseOver() {
-        span.style.display = 'block';
-
-    });
-    priceElement.addEventListener('mouseout', function handleMouseOut() {
-        span.style.display = 'none';
-    });
+    // Tooltip is now controlled via CSS hover on #strict-mode
 }
 
 function addZerosToNumber(actualPrice, strictlyAdjustedPrice) {
@@ -238,7 +236,10 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
         if (stricterPrice !== productPrice && priceElement.getAttribute('id') !== "strict-mode") {
             stricterPrice = addZerosToNumber(priceElement.textContent, stricterPrice)
             let earlierPrice = priceElement.textContent;
-            priceElement.textContent = replaceDigitsFromRight(earlierPrice, stricterPrice.toString()) + "~"
+            // Store original price in data attribute for easier access
+            priceElement.setAttribute('data-original-price', earlierPrice);
+            // Replace price with stricter price
+            priceElement.textContent = replaceDigitsFromRight(earlierPrice, stricterPrice.toString());
             priceElement.setAttribute('id', 'strict-mode');
             createHiddenEarlierPriceElement(earlierPrice, priceElement);
         }
@@ -315,11 +316,10 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
     let swatch = document.createElement("span");
     swatch.className = 'affordable-badge__swatch';
 
-    if (settings.colourCodePrices) {
-        const percent = computeAffordabilityPercent(productPrice, settings.salary);
-        const tier = percentToTier(percent);
-        swatch.classList.add(`aff-tier-${tier}`);
-    }
+    // Always enable colorization based on price
+    const percent = computeAffordabilityPercent(productPrice, settings.salary);
+    const tier = percentToTier(percent);
+    swatch.classList.add(`aff-tier-${tier}`);
 
     let text = document.createElement("span");
     text.className = 'affordable-badge__text';
