@@ -98,6 +98,7 @@
 #strict-mode,
 .budget-mode {
     position: relative !important;
+    overflow: visible !important;
 }
 
 #strict-mode::after {
@@ -115,10 +116,7 @@
 }
 
 .budget-price {
-    position: absolute !important;
-    bottom: 100% !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+    position: fixed !important;
     background-color: #1a1a1a !important;
     color: #ffffff !important;
     padding: 6px 10px !important;
@@ -130,14 +128,9 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
     opacity: 0 !important;
     visibility: hidden !important;
-    transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s ease !important;
-    transform: translateX(-50%) translateY(-4px) !important;
-    margin-bottom: 8px !important;
+    transition: opacity 0.15s ease, visibility 0.15s ease !important;
     font-weight: 500 !important;
     font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif !important;
-    /* Prevent clipping by parent containers */
-    contain: none !important;
-    will-change: opacity, visibility, transform !important;
 }
 
 .budget-price::before {
@@ -160,7 +153,6 @@
 .budget-mode:hover .budget-price {
     opacity: 1 !important;
     visibility: visible !important;
-    transform: translateX(-50%) translateY(0) !important;
 }
 
 @media (prefers-color-scheme: dark) {

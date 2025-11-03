@@ -164,7 +164,32 @@ function createHiddenEarlierPriceElement(earlierPrice, priceElement) {
     span.classList.add('budget-price');
     span.innerText = earlierPrice;
     priceElement.appendChild(span);
-    // Tooltip is now controlled via CSS hover on #strict-mode
+    
+    // Position tooltip on hover using fixed positioning
+    const positionTooltip = () => {
+        const rect = priceElement.getBoundingClientRect();
+        const tooltipRect = span.getBoundingClientRect();
+        
+        // Position above the element, centered
+        const left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+        const top = rect.top - tooltipRect.height - 8; // 8px gap
+        
+        span.style.left = `${left}px`;
+        span.style.top = `${top}px`;
+    };
+    
+    // Update position on hover
+    priceElement.addEventListener('mouseenter', positionTooltip);
+    
+    // Also update on scroll to keep it positioned correctly
+    let scrollTimeout;
+    const handleScroll = () => {
+        if (priceElement.matches(':hover')) {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(positionTooltip, 10);
+        }
+    };
+    window.addEventListener('scroll', handleScroll, true);
 }
 
 function addZerosToNumber(actualPrice, strictlyAdjustedPrice) {
@@ -332,11 +357,11 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
     if (settings.hoverMode) {
         // Hover Mode Attributes
         badge.style.display = 'none';
-        element.addEventListener('mouseover', function handleMouseOver() {
+        desiredElement.addEventListener('mouseover', function handleMouseOver() {
             badge.style.display = 'inline-flex';
         });
         desiredElement.setAttribute("title", `It will take you ${getTimeTakenToEarn(productPrice, settings.salary)} to earn ${productPrice}`);
-        element.addEventListener('mouseout', function handleMouseOut() {
+        desiredElement.addEventListener('mouseout', function handleMouseOut() {
             badge.style.display = 'none';
         });
     } else if (!isPriceRange) {
