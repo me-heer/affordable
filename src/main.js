@@ -355,15 +355,10 @@ function append(elementInfo, element, productPrice, settings, isPriceRange) {
     desiredElement.appendChild(badge);
 
     if (settings.hoverMode) {
-        // Hover Mode Attributes
-        badge.style.display = 'none';
-        desiredElement.addEventListener('mouseover', function handleMouseOver() {
-            badge.style.display = 'inline-flex';
-        });
+        // Hover Mode - use CSS classes for visibility control
+        badge.classList.add('hover-mode');
+        desiredElement.classList.add('affordable-hover-container');
         desiredElement.setAttribute("title", `It will take you ${getTimeTakenToEarn(productPrice, settings.salary)} to earn ${productPrice}`);
-        desiredElement.addEventListener('mouseout', function handleMouseOut() {
-            badge.style.display = 'none';
-        });
     } else if (!isPriceRange) {
         badge.setAttribute("style", "display:inline-flex");
         desiredElement.setAttribute("title", `It will take you ${getTimeTakenToEarn(productPrice, settings.salary)} to earn ${productPrice}`);
@@ -442,6 +437,11 @@ function undoUpdates() {
     elements = document.querySelectorAll(".affordable-highlight-tertiary")
     elements.forEach((element) => {
         element.classList.remove("affordable-highlight-tertiary")
+    })
+
+    elements = document.querySelectorAll(".affordable-hover-container")
+    elements.forEach((element) => {
+        element.classList.remove("affordable-hover-container")
     })
 
 }

@@ -54,6 +54,16 @@
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06) !important;
 }
 
+/* Hover mode - hide badge by default */
+.affordable-badge.hover-mode {
+    display: none !important;
+}
+
+/* Show badge on parent hover when in hover mode */
+.affordable-hover-container:hover .affordable-badge.hover-mode {
+    display: inline-flex !important;
+}
+
 .affordable-badge__swatch {
     width: 6px !important;
     height: 0.9em !important;

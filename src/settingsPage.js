@@ -135,6 +135,7 @@ function addHoverModeUpdateListener() {
             chrome.storage.sync.set({ settings });
         })
         sendMessage()
+        chrome.tabs.reload();
     });
 }
 
@@ -197,6 +198,7 @@ function addPercentageModeListener() {
             chrome.storage.sync.set({ settings });
         })
         sendMessage()
+        chrome.tabs.reload();
     });
 }
 
