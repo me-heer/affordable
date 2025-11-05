@@ -1,19 +1,30 @@
 {
   "name": "Affordable",
   "description": "How long would it take me to earn the amount of money I am spending right now?",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "manifest_version": 3,
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["storage", "tabs"],
-
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
   "content_scripts": [
     {
-      "matches": ["https://*/*"],
+      "matches": [
+        "https://*/*"
+      ],
       "run_at": "document_end",
-      "css": ["main.css"],
-      "js": [ "config.js", "main.js", "lib/currency.js", "content.js"]
+      "css": [
+        "main.css"
+      ],
+      "js": [
+        "config.js",
+        "main.js",
+        "lib/currency.js",
+        "content.js"
+      ]
     }
   ],
   "action": {

@@ -45,7 +45,7 @@ const FLIPKART = {
     blacklistedClasses: [],
     elements: [
         {
-            className: "._30jeq3",
+            className: ".Nx9bqj",
             getter: ["textContent"],
             setter: []
         }
